@@ -1,10 +1,12 @@
 import React from 'react'
+import { ConsultaForm } from '../components/ConsultaForm'
 
 export const HomePage = () => {
+  
   return (
-    <div>
+    <ConsultaForm/>
       
       
-      HomePage</div>
+      
   )
 }
