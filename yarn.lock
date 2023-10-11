@@ -276,6 +276,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emailjs/browser@npm:^3.11.0":
+  version: 3.11.0
+  resolution: "@emailjs/browser@npm:3.11.0"
+  checksum: fdeb780f49ed5ee75ad2d197ae2fcc77c266dcffe1204b6450d01df7db2e9a17d12af97a460eaf33f777c569935aa83285c184d63c59c03387a2c326e90ba5e9
+  languageName: node
+  linkType: hard
+
 "@esbuild/android-arm64@npm:0.18.20":
   version: 0.18.20
   resolution: "@esbuild/android-arm64@npm:0.18.20"
@@ -3001,6 +3008,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^7.47.0":
+  version: 7.47.0
+  resolution: "react-hook-form@npm:7.47.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: dec192fec9c54e436f9e47008635dd7849b6b119ed477a9b0cd491367a0b2ced3427cd937febfb245e1cb7578c863917181d903eff4519c2787bf713ec7d3426
+  languageName: node
+  linkType: hard
+
+"react-icons@npm:^4.11.0":
+  version: 4.11.0
+  resolution: "react-icons@npm:4.11.0"
+  peerDependencies:
+    react: "*"
+  checksum: 7b8b80bbe2dabcc54b6c2129b7761a04b19caebe24389adc7683478ef41212b9ca0b53c63abcc06b3c01b94c84855ec5142b4c357e19c4aaaad9a4db23a3c485
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -3620,6 +3645,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vite-project@workspace:."
   dependencies:
+    "@emailjs/browser": ^3.11.0
     "@types/react": ^18.2.15
     "@types/react-dom": ^18.2.7
     "@vitejs/plugin-react": ^4.0.3
@@ -3630,6 +3656,8 @@ __metadata:
     jsdocs: ^1.0.0
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-hook-form: ^7.47.0
+    react-icons: ^4.11.0
     react-router-dom: ^6.16.0
     vite: ^4.4.5
   languageName: unknown
