@@ -23,30 +23,37 @@ export const ContactForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Name</label>
+   <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-100 p-6 rounded-lg shadow-md space-y-4 h-full">
+      <div className="flex flex-col space-y-2">
+        <label className="font-semibold" htmlFor="user_name">Nombre</label>
         <input 
           {...register("user_name", { required: "Nombre es Obligatorio" })} 
           type="text" 
           name="user_name" 
+          className="p-2 border rounded-md"
         />
-        {errors.user_name && <span>{errors.user_name.message}</span>}
+        {errors.user_name && <span className="text-xs text-red-500">{errors.user_name.message}</span>}
+      </div>
 
-        <label>Email</label>
+      <div className="flex flex-col space-y-2">
+        <label className="font-semibold" htmlFor="user_email">Email</label>
         <input 
           {...register("user_email", {
-            required: "Email is required",
+            required: "El correo es obligatorio",
             pattern: {
               value: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
-              message: "Formato de email invalido"
+              message: "Formato de email inválido"
             }
           })} 
           type="text" 
           name="user_email" 
+          className="p-2 border rounded-md"
         />
-        {errors.user_email && <span>{errors.user_email.message}</span>}
+        {errors.user_email && <span className="text-xs text-red-500">{errors.user_email.message}</span>}
+      </div>
 
-        <label>Mensaje</label>
+      <div className="flex flex-col space-y-2">
+        <label className="font-semibold" htmlFor="message">Mensaje</label>
         <textarea 
           {...register("message", { 
             required: "El mensaje es obligatorio",
@@ -60,11 +67,17 @@ export const ContactForm = () => {
             }
           })} 
           name="message" 
+          className="p-2 border rounded-md"
         />
-        {errors.message && <span>{errors.message.message}</span>}
-        
-        <input type="submit" value="Send" />
-      </form>
-    </FormProvider>
+        {errors.message && <span className="text-xs text-red-500">{errors.message.message}</span>}
+      </div>
+      
+      <input 
+        type="submit" 
+        value="Enviar" 
+        className="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition-all duration-300"
+      />
+    </form>
+  </FormProvider>
   );
 };
