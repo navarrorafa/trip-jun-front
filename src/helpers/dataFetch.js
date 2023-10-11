@@ -25,9 +25,9 @@ export const dataFetch = async (url, method, body = {}) => {
         }
 
         const response = await fetch(url, options);
-
+        console.log("response", response)
         if (!response.ok) {
-         
+
             let errorMsg = "El servidor retornó un error";
             try {
                 const errorData = await response.json();
@@ -39,25 +39,28 @@ export const dataFetch = async (url, method, body = {}) => {
             throw new Error(`Error ${response.status}: ${errorMsg}`);
         }
 
-      
-        if(response.status === 204) {
-            return { 
-                ok: true, 
+
+        if (response.status === 204) {
+            return {
+                ok: true,
                 data: {},
-                 msg: "Operación exitosa sin contenido" };
+                msg: "Operación exitosa sin contenido"
+            };
         };
 
         const data = await response.json();
         return {
-             ok: true,
-              data, 
-              msg: "Fetch realizado con éxito" };
+            ok: true,
+            data,
+            msg: "Fetch realizado con éxito"
+        };
 
     } catch (error) {
 
         console.error('FAILED while fetching', error);
-        return { 
-            ok: false, 
-            msg: error.message };
+        return {
+            ok: false,
+            msg: error.message
+        };
     }
 };
