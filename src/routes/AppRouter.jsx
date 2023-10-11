@@ -9,7 +9,7 @@ import { ContactPage, AboutUsPage } from "../realestate/pages/index";
 
 export const AppRouter = () => {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const isAuthenticated = false;
+  const isAuthenticated = true;
   //check if user is logged and if so, set isAuthenticated to "true"
   // useEffect(() => {
   //   onAuthStateChanged(auth, async (user) => {
