@@ -24,7 +24,7 @@ export const AppRouter = () => {
       {/* <HeaderComp /> */}
      
         
-      
+      <div className="bg-stone-300 min-h-screen">
       <Routes>
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/about" element={<AboutUsPage />} />
@@ -34,6 +34,8 @@ export const AppRouter = () => {
           <Route path="/*" element={<RealestateRouter />}></Route>
         )}
       </Routes>
+
+      </div>
 
      
     </>
