@@ -15,7 +15,7 @@ export const RegisterPage = () => {
   const logregUser = async (data) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
-      navigate("/"); //aun por determinar la ruta hacia usuario creado
+      navigate("/"); //aun por determinar la ruta hacia usuario logeado
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         setErrors("Ya existe una cuenta con ese email");

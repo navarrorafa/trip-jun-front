@@ -51,7 +51,7 @@ export const StartPage = () => {
             <div className="space-y-4">
                 <h3 className="text-xl md:text-2xl font-medium">Paso 3: Recibe tu Estimación</h3>
                 <p className="text-lg text-gray-700">
-                    En poco tiempo, te proporcionamos un análisis de si el alquiler está sobrevalorado o tiene un precio justo. Así puedes tomar una decisión informada y confiada.
+                    En poco tiempo, te proporcionamos un análisis, sabrás si el alquiler está sobrevalorado o tiene un precio justo. Así puedes tomar una decisión corroborada y segura.
                 </p>
             </div>
         </div>
