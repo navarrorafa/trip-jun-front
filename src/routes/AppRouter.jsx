@@ -1,23 +1,21 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { AuthRouter } from "./AuthRouter";
 import { RealestateRouter } from "./RealestateRouter";
 import { ContactPage, AboutUsPage } from "../realestate/pages/index";
-//get login status from firebase:
-//import { auth } from "../config/firebaseConfig";
-//import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../auth/config/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 
 export const AppRouter = () => {
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const isAuthenticated = false;
-  //check if user is logged and if so, set isAuthenticated to "true"
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, async (user) => {
-  //     if (user) {
-  //       setIsAuthenticated(true);
-  //     }
-  //   });
-  // }, []);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // Comprueba si el usuario está autenticado y en ese caso setea estado en true
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setIsAuthenticated(true);
+      }
+    });
+  }, []);
 
   return (
     <>

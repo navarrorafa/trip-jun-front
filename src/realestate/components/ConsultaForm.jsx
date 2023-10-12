@@ -13,10 +13,10 @@ export const ConsultaForm = () => {
                 <label htmlFor="tipoEstancia">Tipo de estancia</label>
                 <select {...register("tipoEstancia", { required: true })}>
                     <option> ------- </option>
-                    <option value=" estanciaCorta"> estancia corta (un mes)</option>
-                    <option value=" estanciaLarga"> estancia larga (de un mes a un año)</option>
+                    <option value=" estanciaCorta"> estancia corta &#40un mes&#41</option>
+                    <option value=" estanciaLarga"> estancia larga &#40de un mes a un año&#41</option>
                 </select>
-                <label>Indique el barrio por favor</label>
+                <label>Indique el barrio, por favor</label>
                 <input
                     {...register("ubicacion", { required: "La ubicación es obligatoria" })}
                     type="text"
