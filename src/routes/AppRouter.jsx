@@ -22,22 +22,18 @@ export const AppRouter = () => {
   return (
     <>
       {/* <HeaderComp /> */}
-     
-        
+
       <div className="bg-stone-300 min-h-screen">
-      <Routes>
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/about" element={<AboutUsPage />} />
-        {!isAuthenticated ? (
-          <Route path="/*" element={<AuthRouter />}></Route>
-        ) : (
-          <Route path="/*" element={<RealestateRouter />}></Route>
-        )}
-      </Routes>
-
+        <Routes>
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/about" element={<AboutUsPage />} />
+          {!isAuthenticated ? (
+            <Route path="/*" element={<AuthRouter />}></Route>
+          ) : (
+            <Route path="/*" element={<RealestateRouter />}></Route>
+          )}
+        </Routes>
       </div>
-
-     
     </>
   );
 };
