@@ -32,26 +32,24 @@ export const RegisterPage = () => {
 
   return (
     <>
-      <section className="">
-        <h1 className="">
+      <section className="pb-20">
+        <h1 className="text-2xl md:text-3xl text-center tracking-wide pt-10 md:pt-16">
           Bienvenido!
         </h1>
         <article>
           <AccessForm logregUser={logregUser} alreadyUser={false} />
         </article>
-        <p className="">
-          {errors}
-        </p>
-        <article className="">
-          <p className="">
+        <p className="my-6 text-red-500 md:text-lg text-center">{errors}</p>
+        <article className=" border-t m-5 md:m-auto max-w-2xl border-gray-500">
+          <p className="mt-6 mb-4 text-lg md:text-xl font-light text-center">
             Regístrate con
           </p>
           <GoogleLoginButton />
-          <p className="">
+          <p className="mt-6 mb-4 text-lg md:text-xl font-light text-center">
             O si ya tienes una cuenta,{" "}
             <Link
               to="/login"
-              className=""
+              className="font-bold underline hover:text-blue-950"
             >
               inicia sesión.
             </Link>
