@@ -39,12 +39,9 @@ export const LoginPage = () => {
           <AccessForm logregUser={logregUser} alreadyUser={true} />
           <p className="my-6 text-red-500 md:text-lg text-center">{errors}</p>
         </article>
-        <article className="border-t m-5 md:m-auto max-w-2xl border-gray-500">
-          <p className="mt-6 mb-4 text-lg md:text-xl font-light text-center">
-            Iniciar sesión con
-          </p>
+        <article className="border-t p-4 m-5 md:m-auto max-w-xl border-gray-500">
           <GoogleLoginButton />
-          <p className="mt-6 mb-4 text-lg md:text-xl font-light text-center">
+         <div> <p className="mt-6 mb-4 text-lg md:text-xl font-light text-center">
             O si lo prefieres,{" "}
             <Link
               to="/register"
@@ -52,7 +49,7 @@ export const LoginPage = () => {
             >
               regístrate.
             </Link>
-          </p>
+          </p></div>
         </article>
       </section>
     </>

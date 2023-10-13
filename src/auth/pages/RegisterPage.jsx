@@ -40,9 +40,8 @@ export const RegisterPage = () => {
           <AccessForm logregUser={logregUser} alreadyUser={false} />
         </article>
         <p className="my-6 text-red-500 md:text-lg text-center">{errors}</p>
-        <article className=" border-t m-5 md:m-auto max-w-2xl border-gray-500">
+        <article className=" border-t m-5 md:m-auto max-w-xl border-gray-500">
           <p className="mt-6 mb-4 text-lg md:text-xl font-light text-center">
-            Regístrate con
           </p>
           <GoogleLoginButton />
           <p className="mt-6 mb-4 text-lg md:text-xl font-light text-center">
