@@ -31,7 +31,7 @@ export const AccessForm = ({ logregUser, alreadyUser }) => {
   return (
     <>
       <form
-        className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full max-w-2xl mx-5 md:m-auto block mt-10 md:mt-16"
+        className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full max-w-xl mx-5 md:m-auto block mt-10 md:mt-16"
         onSubmit={handleSubmit((data) => logregUser(data))}
       >
         <label htmlFor="email" className="text-lg md:text-xl tracking-wide">

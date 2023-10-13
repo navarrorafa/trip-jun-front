@@ -26,8 +26,11 @@ export const GoogleLoginButton = () => {
   };
 
   return (
-    <button className="m-auto block" onClick={googleLogin}>
-      <img className="" src={googleLogo} alt="google logo" />
+    <button className="bg-white py-3 px-20 mt-2 rounded-full shadow-md m-auto block" onClick={googleLogin}>
+      <div className="flex space-x-2" >
+        <img className="w-6 h-6" src={googleLogo} alt="google logo" />
+        <p>Continuar con Google</p>
+      </div>
     </button>
   );
 };
