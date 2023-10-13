@@ -10,7 +10,7 @@ export const useFetch = (url, method, body = {}) => {
   const getData = async () => {
     setIsLoading(true);
     try {
-      const newData = await dataFetch(url, method, body);
+      const newData = await dataFetch(url, method, JSON.stringify(body))
       if (newData.ok) {
         setData(newData.data);
       } else {
@@ -26,7 +26,7 @@ export const useFetch = (url, method, body = {}) => {
   useEffect(() => {
     getData();
 
-  }, [url, method, body]);
+  }, [url, method, JSON.stringify(body)]);
 
   return { data, error, isLoading };
 };

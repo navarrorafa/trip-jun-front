@@ -22,10 +22,11 @@ export const ContactPage = () => {
           <div className="flex flex-wrap md:flex-nowrap gap-6 max-w-3xl mx-auto">
             <div className="flex-1">
               <ContactForm />
-            </div>
+            </div>    
             <div className="w-full md:w-auto">
               <IconsContact />
             </div>
+
           </div>
         </div>
       </section>
