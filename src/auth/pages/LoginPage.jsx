@@ -15,7 +15,7 @@ export const LoginPage = () => {
   const logregUser = async (data) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      navigate("/"); //aun por determinar la ruta hacia usuario logeado
+      navigate("/");
     } catch (error) {
       if (
         error.code === "auth/wrong-password" ||
@@ -31,26 +31,24 @@ export const LoginPage = () => {
 
   return (
     <>
-      <section className="">
-        <h1 className="">
+      <section className="pb-20">
+        <h1 className="text-2xl md:text-3xl text-center tracking-wide pt-10 md:pt-16">
           Bienvenido!
         </h1>
         <article>
           <AccessForm logregUser={logregUser} alreadyUser={true} />
-          <p className="">
-            {errors}
-          </p>
+          <p className="my-6 text-red-500 md:text-lg text-center">{errors}</p>
         </article>
-        <article className="">
-          <p className="">
+        <article className="border-t m-5 md:m-auto max-w-2xl border-gray-500">
+          <p className="mt-6 mb-4 text-lg md:text-xl font-light text-center">
             Iniciar sesión con
           </p>
           <GoogleLoginButton />
-          <p className="">
+          <p className="mt-6 mb-4 text-lg md:text-xl font-light text-center">
             O si lo prefieres,{" "}
             <Link
               to="/register"
-              className=""
+              className="font-bold underline hover:text-blue-950"
             >
               regístrate.
             </Link>
