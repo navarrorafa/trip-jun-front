@@ -28,7 +28,7 @@ export const dataFetch = async (url, method, body = {}) => {
         console.log("response", response)
         if (!response.ok) {
 
-            let errorMsg = "El servidor retornó un error";
+            let errorMsg = "Lo sentimos, ha ocurrido un error en el sistema. Por favor, póngase en contacto con el administrador para obtener ayuda. ";
             try {
                 const errorData = await response.json();
                 errorMsg = errorData.message || errorMsg;
@@ -36,7 +36,7 @@ export const dataFetch = async (url, method, body = {}) => {
                 console.error("Error parsing error response", parseError);
             }
 
-            throw new Error(`Error ${response.status}: ${errorMsg}`);
+            throw new Error(`${errorMsg}`);
         }
 
 

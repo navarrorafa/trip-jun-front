@@ -16,7 +16,7 @@ export const ConsultaForm = () => {
         setIsLoading(true);
     
         try {
-            const response = await dataFetch("http://127.0.0.1:3500/api/predict", 'POST', data);
+            const response = await dataFetch("http://16.170.228.248/api/predict", 'POST', data);
             
             //Manejando respuesta
             if(response.ok){
@@ -148,7 +148,7 @@ export const ConsultaForm = () => {
                             type="number"
                             name="banos"
                         />
-                        {errors.banos && <span>{errors.banos.message}</span>}
+                        {errors.banos && <span className="text-xs text-red-500">{errors.banos.message}</span>}
                     </div>
 
                     {/* AREA M2 */}
@@ -159,7 +159,7 @@ export const ConsultaForm = () => {
                             type="number"
                             name="area"
                         />
-                        {errors.area && <span>{errors.area.message}</span>}
+                        {errors.area && <span className="text-xs text-red-500">{errors.area.message}</span>}
                     </div>
 
 
@@ -181,7 +181,7 @@ export const ConsultaForm = () => {
                         name="furnished"
                         value="0"
                     />
-                    {errors.furnished && <span>{errors.furnished.message}</span>}
+                    {errors.furnished && <span className="text-xs text-red-500">{errors.furnished.message}</span>}
 
 
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ConsultaForm } from '../components/ConsultaForm'
+import { ConsultaFormCurta } from '../components/ConsultaFormCurta';
 
 export const HomePage = () => {
   const [mostrarFormulario, setMostrarFormulario] = useState("larga"); 
@@ -37,7 +38,7 @@ export const HomePage = () => {
 
         <div className="flex flex-wrap md:flex-nowrap gap-6 max-w-3xl mx-auto">
             {mostrarFormulario === 'larga' && <ConsultaForm />}
-            {/* {mostrarFormulario === 'corta' && <ConsultaFormCurta />} */}
+            {mostrarFormulario === 'corta' && <ConsultaFormCurta />}
         </div>
     </div>
 </section>
