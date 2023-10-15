@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { dataFetch } from '../../helpers/dataFetch';
+import { ClipLoader } from "react-spinners";
+
 
 export const ConsultaForm = () => {
     const { register,reset, handleSubmit, formState: { errors } } = useForm();
@@ -16,7 +18,7 @@ export const ConsultaForm = () => {
         setIsLoading(true);
     
         try {
-            const response = await dataFetch("http://16.170.228.248/api/predict", 'POST', data);
+            const response = await dataFetch("http://127.0.0.1:3500/api/predict", 'POST', data);
             
             //Manejando respuesta
             if(response.ok){
@@ -200,18 +202,39 @@ export const ConsultaForm = () => {
             {data && !isLoading && (
     <div className="w-full md:w-auto">
         <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
-            <p>Prediction: {data.prediction}</p>
+        <>
+        <p className="text-2xl font-semibold text-gray-800 mb-4">
+          ¡Gracias por su consulta!
+        </p>
+        <p className="text-xl text-gray-800">
+          Basado en su búsqueda, la predicción mensual para su estadía de larga duración es de:
+        </p>
+        <p className="text-4xl pt-4 font-bold text-green-800  mt-2">
+          € {data.prediction} 
+        </p>
+        <p className="text-xl pb-4 font-bold text-green-800 ">
+          mensuales
+        </p>
+        <p className="text-xl mt-4">
+          ¡Esperamos que esta información le sea útil!
+        </p>
+      </>
         </div>
     </div>
 )}
 
 {/* Verifica se está carregando para exibir um loading spinner ou mensagem */}
 {isLoading && (
-    <div className="w-full md:w-auto">
-        <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
-            <p>Carregando...</p>
-        </div>
-    </div>
+   <div className="w-full md:w-auto">
+   <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
+     <ClipLoader
+       size={35} // Tamaño del spinner
+       loading={isLoading}
+       className="text-gray-800" // Agrega la clase de color aquí
+     />
+     <p className="mt-4 text-lg text-gray-800 font-semibold">Carregando...</p>
+   </div>
+ </div>
 )}
 
 {/* Verifica se existe um erro para exibir uma mensagem de erro */}
