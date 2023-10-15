@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .env
+install-state.gz
 
 # Editor directories and files
 .vscode/*
