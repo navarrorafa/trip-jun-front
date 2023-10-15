@@ -9,7 +9,7 @@ import InputMask from "react-input-mask";
 
 
 export const ConsultaFormCurta = () => {
-    const { register, handleSubmit,reset, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const selectedDistrito = watch("distrito");
     const [formData, setFormData] = useState(null);
     const [data, setData] = useState(null);
