@@ -32,8 +32,13 @@ export const ConsultaFormCurta = () => {
     const fechas = `${formattedDateOne}-${formattedDateTwo}`;
     //add to data object
     const newData = {
-      ...data,
-      fechas,
+        ...data,
+        accommodates:parseInt(data.accommodates, 10),
+        bedrooms: parseInt(data.bedrooms, 10),
+        beds: parseInt(data.beds, 10),
+        Grouped_reviews: parseInt(data.Grouped_reviews, 10),
+        num_bathrooms: parseInt(data.num_bathrooms, 10),
+        fechas,
     };
     console.log(newData);
     setFormData(newData);
@@ -41,7 +46,7 @@ export const ConsultaFormCurta = () => {
 
     try {
       const response = await dataFetch(
-        "http://16.171.25.32/api/predict",
+        "http://127.0.0.1:4500/api/predict",
         "POST",
         newData
       );
@@ -266,16 +271,16 @@ export const ConsultaFormCurta = () => {
 
             {/* Campo de seleção de bairro */}
             <div className="flex flex-col space-y-2">
-              <label className="font-semibold" htmlFor="subdistrito">
+              <label className="font-semibold" htmlFor="neighbourhood_encoded">
                 Barrio
               </label>
               <select
-                id="subdistrito"
-                {...register("subdistrito", {
+                id="neighbourhood_encoded"
+                {...register("neighbourhood_encoded", {
                   required: "Por favor, selecione um bairro.",
                 })}
                 className={`p-2 border rounded-md ${
-                  errors.subdistrito ? "border-red-500" : ""
+                  errors.neighbourhood_encoded ? "border-red-500" : ""
                 }`}
               >
                 <option value=""> ------- </option>
@@ -286,17 +291,17 @@ export const ConsultaFormCurta = () => {
                     </option>
                   ))}
               </select>
-              {errors.subdistrito && (
+              {errors.neighbourhood_encoded && (
                 <span className="text-xs text-red-500">
-                  {errors.subdistrito.message}
+                  {errors.neighbourhood_encoded.message}
                 </span>
               )}
             </div>
 
             {/* TIPO DE HABITACION */}
             <div className="flex flex-col space-y-2">
-              <label htmlFor="room_type">Tipo de Habitación</label>
-              <select {...register("room_type", { required: true })}>
+              <label htmlFor="room_type_encoded">Tipo de Habitación</label>
+              <select {...register("room_type_encoded", { required: true })}>
                 <option> ------- </option>
                 <option value="Private room">Habitación Privada</option>
                 <option value="Entire home/apt">Casa/ Piso completo</option>
@@ -306,20 +311,20 @@ export const ConsultaFormCurta = () => {
 
             {/* CAPACIDADE ALOJAMIENTO */}
             <div className="flex flex-col space-y-2">
-              <label htmlFor="accomodates">
-                Indique el número de huespedes
+              <label htmlFor="accommodates">
+                Número de huespedes
               </label>
               <input
-                {...register("accomodates", {
+                {...register("accommodates", {
                   required: "Necesitamos saber la capacidad del alojamiento",
                   min: 1,
                 })}
                 type="number"
-                name="accomodates"
+                name="accommodates"
               />
-              {errors.accomodates && (
+              {errors.accommodates && (
                 <span className="text-xs text-red-500">
-                  {errors.accomodates.message}
+                  {errors.accommodates.message}
                 </span>
               )}
             </div>
@@ -327,7 +332,7 @@ export const ConsultaFormCurta = () => {
             {/* HABITACIONES */}
             <div className="flex flex-col space-y-2">
               <label htmlFor="bedrooms">
-                Indique el número de habitaciones
+               Número de habitaciones
               </label>
               <input
                 {...register("bedrooms", {
@@ -337,27 +342,47 @@ export const ConsultaFormCurta = () => {
                 type="number"
                 name="bedrooms"
               />
-              {errors.banos && (
+              {errors.bedrooms && (
                 <span className="text-xs text-red-500">
-                  {errors.banos.message}
+                  {errors.bedrooms.message}
+                </span>
+              )}
+            </div>
+
+              {/* CAMAS*/}
+              <div className="flex flex-col space-y-2">
+              <label htmlFor="beds">
+               Número de Camas
+              </label>
+              <input
+                {...register("beds", {
+                  required: "Necesitamos saber el número de habitaciones",
+                  min: 1,
+                })}
+                type="number"
+                name="beds"
+              />
+              {errors.beds && (
+                <span className="text-xs text-red-500">
+                  {errors.beds.message}
                 </span>
               )}
             </div>
 
             {/* BAÑOS */}
             <div className="flex flex-col space-y-2">
-              <label htmlFor="banos">Indique el número de Baños</label>
+              <label htmlFor="num_bathrooms">Número de Baños</label>
               <input
-                {...register("banos", {
+                {...register("num_bathrooms", {
                   required: "Necesitamos saber el número de baños",
                   min: 1,
                 })}
                 type="number"
-                name="banos"
+                name="num_bathrooms"
               />
-              {errors.banos && (
+              {errors.num_bathrooms && (
                 <span className="text-xs text-red-500">
-                  {errors.banos.message}
+                  {errors.num_bathrooms.message}
                 </span>
               )}
             </div>
@@ -383,14 +408,36 @@ export const ConsultaFormCurta = () => {
               <DayPick
                 setDate={setDateOne}
                 date={dateOne}
-                label={"Indique fecha de inicio"}
+                label={"Fecha de inicio"}
               />
               <DayPick
                 setDate={setDateTwo}
                 date={dateTwo}
-                label={"Indique fecha final"}
+                label={"Fecha de Salida"}
               />
             </div>
+
+
+
+             {/* REVIEWS */}
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="Grouped_reviews">Indique la evaluicion del anuncio</label>
+              <input
+                {...register("Grouped_reviews", {
+                  required: "Indica la valoración del anuncio",
+                  max: 5,
+                })}
+                type="number"
+                name="Grouped_reviews"
+              />
+              {errors.Grouped_reviews && (
+                <span className="text-xs text-red-500">
+                  {errors.Grouped_reviews.message}
+                </span>
+              )}
+            </div>
+
+
 
             <input
               type="submit"
@@ -404,7 +451,15 @@ export const ConsultaFormCurta = () => {
       {data && !isLoading && (
         <div className="w-full md:w-auto">
           <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
-            <p>Predicción: {data.prediction}</p>
+            <p>Predicción:
+                <>
+                {data.precio_maximo_estancia}
+                {data.precio_maximo_por_dia}
+                {data.precio_minimo_estancia}
+                {data.precio_minimo_por_dia}
+                
+                </>
+                </p>
           </div>
         </div>
       )}

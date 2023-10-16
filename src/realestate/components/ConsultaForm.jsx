@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { dataFetch } from '../../helpers/dataFetch';
 import { ClipLoader } from "react-spinners";
+import { UserContext } from '../../context/UserContext';
 
 
 export const ConsultaForm = () => {
@@ -10,6 +11,9 @@ export const ConsultaForm = () => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const { userStatus} = useContext(UserContext);
+    const {uid} = userStatus
+    console.log(uid)
 
     
 
@@ -18,18 +22,19 @@ export const ConsultaForm = () => {
         setIsLoading(true);
     
         try {
-            const response = await dataFetch("http://16.170.228.248/api/predict ", 'POST', data);
-            
+            const response = await dataFetch("http://127.0.0.1:3500/api/predict", 'POST', data);
+            console.log("formulario",data)
             //Manejando respuesta
             if(response.ok){
                 setData(response.data);
                 console.log('Response from server:', response.data);
 
-                const body = {...data,predicton : response.data.prediction, uid : "sudjhaiusdhakj" , estanc:"larga" ,}
+                const body = {...data, predicton : data.prediction, uid : uid , estanc:"larga" ,}
                 console.log("body:" , body)
-
-                const user = await dataFetch("http://localhost:3000/api/v1/consulta/crear", 'POST', data)
+                const user = await dataFetch("http://localhost:3000/api/v1/consulta/crear", 'POST', body)
               console.log(user)
+
+                
             } else {
                 throw new Error(response.msg);
             }
@@ -221,6 +226,7 @@ export const ConsultaForm = () => {
         <p className="text-xl pb-4 font-bold text-green-800 ">
           mensuales
         </p>
+        <p className="pb-4 font-bold text-green-800 ">{data.fiabilidad}</p>
         <p className="text-xl mt-4">
           ¡Esperamos que esta información le sea útil!
         </p>

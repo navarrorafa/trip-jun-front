@@ -10,7 +10,9 @@ export const dataFetch = async (url, method, body = {}) => {
                 headers: {
                     "Content-type": "application/json",
                 }
+                
             }
+            console.log(newData)
         } else if (method === "DELETE") {
             options = {
                 method: method

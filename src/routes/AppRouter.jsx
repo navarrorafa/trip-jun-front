@@ -9,7 +9,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { UserContext } from "../context/UserContext";
 
 export const AppRouter = () => {
-  const { userStatus } = useContext(UserContext);
+  const { userStatus, setUserStatus } = useContext(UserContext);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   // Comprueba si el usuario está autenticado y en ese caso setea estado en true
   useEffect(() => {
@@ -18,11 +18,12 @@ export const AppRouter = () => {
       console.log(user);
       if (user) {
         setIsAuthenticated(true);
+        setUserStatus({uid: user.uid})
       } else {
         setIsAuthenticated(false);
       }
     });
-  }, [auth, userStatus]);
+  }, [auth]);
 
   return (
     <>
