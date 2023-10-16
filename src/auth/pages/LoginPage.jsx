@@ -15,13 +15,15 @@ export const LoginPage = () => {
   const logregUser = async (data) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      navigate("/");
     } catch (error) {
       if (
         error.code === "auth/wrong-password" ||
         error.code === "auth/user-not-found"
       ) {
         setErrors("Usuario y/o contraseña incorrectos");
+      } else if (error.code === "auth/invalid-login-credentials"
+      ) {
+        setErrors("No existe una cuenta con ese email asociado")
       } else {
         setErrors("Error de inicio de sesión, contacte con el Admin");
         console.log("Error de inicio de sesión:", error);
@@ -41,7 +43,7 @@ export const LoginPage = () => {
         </article>
         <article className="border-t p-4 m-5 md:m-auto max-w-xl border-gray-500">
           <GoogleLoginButton />
-         <div> <p className="mt-6 mb-4 text-lg md:text-xl font-light text-center">
+          <div> <p className="mt-6 mb-4 text-lg md:text-xl font-light text-center">
             O si lo prefieres,{" "}
             <Link
               to="/register"
