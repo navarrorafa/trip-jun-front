@@ -18,12 +18,18 @@ export const ConsultaForm = () => {
         setIsLoading(true);
     
         try {
-            const response = await dataFetch("http://127.0.0.1:3500/api/predict", 'POST', data);
+            const response = await dataFetch("http://16.170.228.248/api/predict ", 'POST', data);
             
             //Manejando respuesta
             if(response.ok){
                 setData(response.data);
                 console.log('Response from server:', response.data);
+
+                const body = {...data,predicton : response.data.prediction, uid : "sudjhaiusdhakj" , estanc:"larga" ,}
+                console.log("body:" , body)
+
+                const user = await dataFetch("http://localhost:3000/api/v1/consulta/crear", 'POST', data)
+              console.log(user)
             } else {
                 throw new Error(response.msg);
             }

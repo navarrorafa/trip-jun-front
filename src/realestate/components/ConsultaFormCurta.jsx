@@ -41,7 +41,7 @@ export const ConsultaFormCurta = () => {
 
     try {
       const response = await dataFetch(
-        "http://127.0.0.1:4500/api/predict",
+        "http://16.171.25.32/api/predict",
         "POST",
         newData
       );
