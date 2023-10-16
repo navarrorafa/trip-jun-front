@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 /**
  * Función que administra los datos de acceso
@@ -34,6 +35,23 @@ export const AccessForm = ({ logregUser, alreadyUser }) => {
         className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full max-w-xl mx-5 md:m-auto block mt-10 md:mt-16"
         onSubmit={handleSubmit((data) => logregUser(data))}
       >
+        {!alreadyUser &&
+          <>
+            <label
+              htmlFor="name"
+              className="text-lg md:text-xl tracking-wide"
+            >
+              Nombre
+            </label>
+            <input
+              {...register("name")}
+              type="text"
+              id="name"
+              name="name"
+              className="flex flex-col space-y-2 p-2 rounded-lg w-full"
+            />
+          </>
+        }
         <label htmlFor="email" className="text-lg md:text-xl tracking-wide">
           Email
         </label>
@@ -68,8 +86,11 @@ export const AccessForm = ({ logregUser, alreadyUser }) => {
           onChange={(ev) => setPassword(ev.target.value)}
           className="flex flex-col space-y-2 p-2 rounded-lg w-full"
         />
+        {alreadyUser &&
+          <Link className='underline text-blue-600 hover:text-green-500' to='/recover' >Olvidaste la contraseña?</Link>
+        }
         <p className="text-red-500">{errors.password?.message}</p>
-        {!alreadyUser && (
+        {!alreadyUser &&
           <>
             <label
               htmlFor="passwordConfirm"
@@ -94,12 +115,12 @@ export const AccessForm = ({ logregUser, alreadyUser }) => {
             <p className="text-red-500">{errors.passwordConfirm?.message}</p>
             <p className="text-red-500">{passwordMatch}</p>
           </>
-        )}
+        }
         <button
           className=" w-full p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300"
           type="submit"
         >
-          Login
+          Enviar
         </button>
       </form>
     </>

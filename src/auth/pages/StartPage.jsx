@@ -51,7 +51,7 @@ export const StartPage = () => {
               sobrevalorado en Madrid.
             </p>
             <Link
-              to="/login"
+              to="/register"
               className="bg-gray-800 text-xl text-white  px-6 py-3 rounded-md hover:bg-blue-600"
             >
               Regístrate
@@ -102,7 +102,7 @@ export const StartPage = () => {
 
             <div className="text-center mt-8">
               <Link
-                to="/login"
+                to="/register"
                 className="bg-gray-800 text-xl text-white px-6 py-3 rounded-md  hover:bg-blue-600 transition-all duration-300"
               >
                 Regístrate

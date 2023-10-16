@@ -55,7 +55,10 @@ export const NavBar = () => {
 
           <div className="mt-4 md:mt-0">
             {isAuthenticated ? (
+              <> 
+              <p>Saludos {user.displayName}</p>
               <LogoutButton setIsAuthenticated={setIsAuthenticated} />
+              </>
             ) : (
               <Link to="/login">
                 <button

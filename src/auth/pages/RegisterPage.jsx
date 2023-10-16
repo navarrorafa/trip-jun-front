@@ -3,19 +3,27 @@ import { useNavigate, Link } from "react-router-dom";
 import { AccessForm } from "../components/AccessForm";
 import { GoogleLoginButton } from "../components/GoogleLoginButton";
 import { auth } from "../config/firebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState("");
 
   /**
-   * Función hace uso del metodo nativo de Firebase createUserWithEmailAndPassword para creación de cuenta de usuario con los datos proporcionados en el form
+   * Función hace uso del método nativo de Firebase createUserWithEmailAndPassword para creación de cuenta de usuario con los datos proporcionados en el form
    */
   const logregUser = async (data) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
-      navigate("/"); //aun por determinar la ruta hacia usuario logeado
+      //Adicionalmente hace uso del método nativo de Firebase updateProfile para definir el valor de displayName con el nombre aportado por el usuario o si éste se envia en blanco, con el email excluyendo el @dominio
+      if (data.name) {
+        await updateProfile(auth.currentUser, { displayName: data.name });
+      } else {
+        const nameArray = data.email.split("@");
+        const newName = nameArray[0];
+        const displayName = newName;
+        await updateProfile(auth.currentUser, { displayName });
+      };
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         setErrors("Ya existe una cuenta con ese email");
@@ -27,7 +35,7 @@ export const RegisterPage = () => {
         setErrors("Error de registro, contacte con el Admin");
         console.log("Error de registro:", error);
       }
-    }
+    };
   };
 
   return (
