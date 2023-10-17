@@ -1,10 +1,10 @@
 export const dataFetch = async (url, method, body = {}) => {
     let options = {};
     let newData = { ...body };
-
+   
     try {
         if (method === "POST" || method === "PUT") {
-            options = {
+             options = {
                 method: method,
                 body: JSON.stringify(newData),
                 headers: {

@@ -26,10 +26,17 @@ export const ConsultaForm = () => {
             console.log("formulario",data)
             //Manejando respuesta
             if(response.ok){
-                setData(response.data);
-                console.log('Response from server:', response.data);
 
-                const body = {...data, predicton : data.prediction, uid : uid , estanc:"larga" ,}
+                setData(response.data);
+
+                console.log('Response from server:', response.data);
+                console.log(response.data.prediction)
+                const precio = response.data.prediction.toString()
+                console.log("PRECIO :" , precio)
+
+
+                const body = {...data, prediction : precio, uid : uid , estanc:"larga" ,}
+                
                 console.log("body:" , body)
                 const user = await dataFetch("http://localhost:3000/api/v1/consulta/crear", 'POST', body)
               console.log(user)

@@ -41,7 +41,7 @@ export const HomePage = () => {
             </button>
           </div>
 
-          <div className="flex flex-wrap md:flex-nowrap gap-6 max-w-3xl mx-auto">
+          <div className="flex flex-wrap md:flex-nowrap gap-6 max-w-4xl mx-auto">
             {mostrarFormulario === "larga" && <ConsultaForm />}
             {mostrarFormulario === "corta" && <ConsultaFormCurta />}
           </div>

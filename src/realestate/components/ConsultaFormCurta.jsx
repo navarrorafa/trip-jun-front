@@ -25,6 +25,7 @@ export const ConsultaFormCurta = () => {
   const [dateTwo, setDateTwo] = useState(nextDate);
 
   const onSubmit = async (data) => {
+    setError(null); 
     //format dates received from datePick usestate hook
     const formattedDateOne = format(dateOne, "dd/MM/yyyy");
     const formattedDateTwo = format(dateTwo, "dd/MM/yyyy");
@@ -32,13 +33,13 @@ export const ConsultaFormCurta = () => {
     const fechas = `${formattedDateOne}-${formattedDateTwo}`;
     //add to data object
     const newData = {
-        ...data,
-        accommodates:parseInt(data.accommodates, 10),
-        bedrooms: parseInt(data.bedrooms, 10),
-        beds: parseInt(data.beds, 10),
-        Grouped_reviews: parseInt(data.Grouped_reviews, 10),
-        num_bathrooms: parseInt(data.num_bathrooms, 10),
-        fechas,
+      ...data,
+      accommodates: parseInt(data.accommodates, 10),
+      bedrooms: parseInt(data.bedrooms, 10),
+      beds: parseInt(data.beds, 10),
+      Grouped_reviews: parseInt(data.Grouped_reviews, 10),
+      num_bathrooms: parseInt(data.num_bathrooms, 10),
+      fechas,
     };
     console.log(newData);
     setFormData(newData);
@@ -239,7 +240,7 @@ export const ConsultaFormCurta = () => {
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full"
+            className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full max-w-xl mx-auto "
           >
             {/* Campo de seleção de distrito */}
             <div className="flex flex-col space-y-2">
@@ -251,9 +252,8 @@ export const ConsultaFormCurta = () => {
                 {...register("distrito", {
                   required: "Por favor, selecione um distrito.",
                 })}
-                className={`p-2 border rounded-md ${
-                  errors.distrito ? "border-red-500" : ""
-                }`}
+                className={`p-2 border rounded-md ${errors.distrito ? "border-red-500" : ""
+                  }`}
               >
                 <option value=""> ------- </option>
                 {Object.keys(distritosBairros).map((distrito) => (
@@ -279,9 +279,8 @@ export const ConsultaFormCurta = () => {
                 {...register("neighbourhood_encoded", {
                   required: "Por favor, selecione um bairro.",
                 })}
-                className={`p-2 border rounded-md ${
-                  errors.neighbourhood_encoded ? "border-red-500" : ""
-                }`}
+                className={`p-2 border rounded-md ${errors.neighbourhood_encoded ? "border-red-500" : ""
+                  }`}
               >
                 <option value=""> ------- </option>
                 {selectedDistrito &&
@@ -332,7 +331,7 @@ export const ConsultaFormCurta = () => {
             {/* HABITACIONES */}
             <div className="flex flex-col space-y-2">
               <label htmlFor="bedrooms">
-               Número de habitaciones
+                Número de habitaciones
               </label>
               <input
                 {...register("bedrooms", {
@@ -349,10 +348,10 @@ export const ConsultaFormCurta = () => {
               )}
             </div>
 
-              {/* CAMAS*/}
-              <div className="flex flex-col space-y-2">
+            {/* CAMAS*/}
+            <div className="flex flex-col space-y-2">
               <label htmlFor="beds">
-               Número de Camas
+                Número de Camas
               </label>
               <input
                 {...register("beds", {
@@ -387,23 +386,6 @@ export const ConsultaFormCurta = () => {
               )}
             </div>
 
-            {/* FECHA */}
-            {/* <div className="flex flex-col space-y-2">
-              <label htmlFor="fechas">
-                Fechas (Formato: DD/MM/AAAA-DD/MM/AAAA)
-              </label>
-              <input
-                type="text"
-                id="fechas"
-                name="fechas"
-                {...register("fechas", {
-                  required: "Este campo é obrigatório",
-                })}
-              />
-              {errors.fechas && (
-                <span className="text-red-500">{errors.fechas.message}</span>
-              )}
-            </div> */}
             <div className="flex flex-col sm:flex-row">
               <DayPick
                 setDate={setDateOne}
@@ -419,7 +401,7 @@ export const ConsultaFormCurta = () => {
 
 
 
-             {/* REVIEWS */}
+            {/* REVIEWS */}
             <div className="flex flex-col space-y-2">
               <label htmlFor="Grouped_reviews">Indique la evaluicion del anuncio</label>
               <input
@@ -448,21 +430,60 @@ export const ConsultaFormCurta = () => {
         </div>
       </div>
 
+
       {data && !isLoading && (
-        <div className="w-full md:w-auto">
-          <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
-            <p>Predicción:
-                <>
-                {data.precio_maximo_estancia}
-                {data.precio_maximo_por_dia}
-                {data.precio_minimo_estancia}
-                {data.precio_minimo_por_dia}
-                
-                </>
-                </p>
-          </div>
+  <div className="w-full md:w-auto max-w-xl mx-auto" >
+    <div className="flex flex-col items-center justify-center p-8 bg-gray-100 rounded-lg shadow-md text-center h-full">
+      <p className="text-3xl font-semibold text-gray-800 mb-4">
+        ¡Gracias por su consulta!
+      </p>
+      <p className="text-lg text-gray-800">
+        Según su búsqueda, los precios estimados son los siguientes:
+      </p>
+      <div className="grid grid-cols-2 gap-4 mt-6">
+        <div className="bg-white p-4 rounded-lg text-center">
+          <p className="text-xl font-bold text-green-800 mb-2">
+            Precio mínimo por día
+          </p>
+          <p className="text-3xl font-bold text-green-800">
+            €{data.precio_minimo_por_dia}
+          </p>
         </div>
-      )}
+        <div className="bg-white p-4 rounded-lg text-center">
+          <p className="text-xl font-bold text-green-800 mb-2">
+            Precio máximo por día
+          </p>
+          <p className="text-3xl font-bold text-green-800">
+            €{data.precio_maximo_por_dia}
+          </p>
+        </div>
+        <div className="bg-white p-4 rounded-lg text-center">
+          <p className="text-xl font-bold text-blue-800 mb-2">
+            Precio mínimo de estancia
+          </p>
+          <p className="text-3xl font-bold text-blue-800">
+            €{data.precio_minimo_estancia}
+          </p>
+        </div>
+        <div className="bg-white p-4 rounded-lg text-center">
+          <p className="text-xl font-bold text-blue-800 mb-2">
+            Precio máximo de estancia
+          </p>
+          <p className="text-3xl font-bold text-blue-800">
+            €{data.precio_maximo_estancia}
+          </p>
+        </div>
+      </div>
+      <p className="text-lg text-gray-800 mt-6">
+        ¡Esperamos que esta información le sea útil!
+      </p>
+    </div>
+  </div>
+)}
+
+
+
+
 
       {/* Verifica se está carregando para exibir um loading spinner ou mensagem */}
       {isLoading && (
