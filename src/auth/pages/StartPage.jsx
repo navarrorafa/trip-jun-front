@@ -23,7 +23,6 @@ export const StartPage = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-8">
         <section className="relative h-screen w-screen grid place-items-center overflow-hidden">
           <div className="relative w-screen h-screen">
             {/* <img
@@ -39,7 +38,9 @@ export const StartPage = () => {
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
               //className="absolute left-0 right-0 w-full"
-              className="absolute inset-0 w-full h-full object-cover top-1/2 -translate-y-1/2 pb-16"
+              className="absolute inset-0 top-1/2 -translate-y-1/2 pb-16"
+              style={{width: "100%", height: "200%"}}
+
             ></iframe>
           </div>
           <div className="absolute  flex flex-col justify-center items-center text-center w-full h-full bg-black bg-opacity-50 px-10 sm:p-4">
@@ -110,7 +111,6 @@ export const StartPage = () => {
             </div>
           </div>
         </section>
-      </div>
     </>
   );
 };
