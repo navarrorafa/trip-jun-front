@@ -1,13 +1,16 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { auth } from "../auth/config/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { LogoutButton } from "../auth/components/LogoutButton";
 import { DropdownAccount } from "../realestate/components/DropdownAccount";
+import { UserContext } from '../context/UserContext';
 
 export const NavBar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { userStatus } = useContext(UserContext);
+  const { name } = userStatus
   // Comprueba si el usuario está autenticado y en ese caso setea estado en true
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -54,7 +57,10 @@ export const NavBar = () => {
 
           <div className="mt-4 md:mt-0">
             {isAuthenticated ? (
-              <LogoutButton setIsAuthenticated={setIsAuthenticated} />
+              <div>
+                <LogoutButton setIsAuthenticated={setIsAuthenticated} />
+                <p className="text-white p-1">Hola <strong>{name}</strong></p>
+              </div>
             ) : (
               <Link to="/login">
                 <button

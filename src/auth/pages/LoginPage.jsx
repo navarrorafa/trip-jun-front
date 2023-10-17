@@ -18,10 +18,10 @@ export const LoginPage = () => {
     } catch (error) {
       if (
         error.code === "auth/wrong-password" ||
-        error.code === "auth/user-not-found"
+        error.code === "auth/invalid-login-credentials"
       ) {
         setErrors("Usuario y/o contraseña incorrectos");
-      } else if (error.code === "auth/invalid-login-credentials"
+      } else if (error.code === "auth/user-not-found"
       ) {
         setErrors("No existe una cuenta con ese email asociado")
       } else {
