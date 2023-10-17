@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { dataFetch } from '../../helpers/dataFetch';
 import { ClipLoader } from "react-spinners";
 import { UserContext } from '../../context/UserContext';
+import { Graphics } from './Graphics';
 
 
 export const ConsultaForm = () => {
@@ -15,7 +16,7 @@ export const ConsultaForm = () => {
     const {uid} = userStatus
     console.log(uid)
 
-    
+   
 
     const onSubmit = async (data) => {
         setFormData(data); 
@@ -266,7 +267,7 @@ export const ConsultaForm = () => {
 )}
 
 
-
+<Graphics/>
 
         </>
     )
