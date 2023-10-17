@@ -13,9 +13,6 @@ export const ConsultaForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { userStatus} = useContext(UserContext);
     const {uid} = userStatus
-    console.log(uid)
-
-    
 
     const onSubmit = async (data) => {
         setFormData(data); 

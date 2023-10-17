@@ -18,11 +18,13 @@ export const RegisterPage = () => {
       //Adicionalmente hace uso del método nativo de Firebase updateProfile para definir el valor de displayName con el nombre aportado por el usuario o si éste se envia en blanco, con el email excluyendo el @dominio
       if (data.name) {
         await updateProfile(auth.currentUser, { displayName: data.name });
+        window.location.reload();
       } else {
         const nameArray = data.email.split("@");
         const newName = nameArray[0];
         const displayName = newName;
         await updateProfile(auth.currentUser, { displayName });
+        window.location.reload();
       };
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {

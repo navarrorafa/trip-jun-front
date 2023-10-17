@@ -28,12 +28,7 @@ export const DropdownAccount = () => {
             </Link>
           </li>
           <li>
-            <Link className="block px-4 py-2 hover:bg-gray-100" to="">
-              Editar email
-            </Link>
-          </li>
-          <li>
-            <Link className="block px-4 py-2 hover:bg-gray-100" to="">
+            <Link className="block px-4 py-2 hover:bg-gray-100" to="/editpass">
               Editar contraseña
             </Link>
           </li>
