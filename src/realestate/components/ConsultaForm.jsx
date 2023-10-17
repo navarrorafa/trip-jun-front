@@ -14,6 +14,7 @@ export const ConsultaForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { userStatus} = useContext(UserContext);
     const {uid} = userStatus
+
     const [activeGrafico , setActiveGrafico] = useState(false)
     const [graphKey , setGraphKey] = useState(0)
   
