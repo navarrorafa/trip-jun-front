@@ -1,49 +1,61 @@
-import React, { useEffect, useState } from 'react';
-
-import { dataFetch } from '../../helpers/dataFetch';
-import { Tooltip, YAxis, Legend, XAxis, CartesianGrid, Line, Bar, LineChart, BarChart } from "recharts"
+import React, { useContext, useEffect, useState } from 'react';
+import { Tooltip, YAxis, Legend, XAxis, CartesianGrid, LineChart, BarChart, Line, Bar, ResponsiveContainer } from "recharts";
 import { useFetch } from '../../hook/useFetch';
-
-
-
+import { UserContext } from '../../context/UserContext';
 
 export const Graphics = () => {
-  const [infouser, setInfouser] = useState("")
-  const url = "http://localhost:3000/api/v1/consulta/qMWcVHfDngYKJ6wiAUswa2UhAq12"
-  const response = useFetch(url, "GET")
-  const { data } = response
+  const [user, setUser] = useState()
+  const { userStatus } = useContext(UserContext);
+  const { uid } = userStatus
+  const url = `http://localhost:3000/api/v1/consulta/${uid}`;
+  const response = useFetch(url, "GET");
+  const { data } = response;
 
-  console.log(response)
-  console.log(data.data)
-  const history = data.data
 
-  console.log(history)
 
-  const mapeado = () => {
-    history.map((item, index) =>{
-if(index<=6) {
-  <p>{item.fecha}</p>
-}
+  useEffect(() => {
 
-      
-    })
+    setUser(data)
 
+  }, [response])
+
+
+
+  console.log(response);
+  console.log(user);
+
+  let history = [];
+  let historialReverso = [];
+
+  if (user && Array.isArray(user.data)) {
+
+    historialReverso = user.data.map((item, index) => ({
+
+      anyo: { fecha: item.fecha, barrio: "Barrio: " + item.barrio, habit: " Habitaciones: " + item.hab },
+      precio: item.prediction
+    }))
+      .reverse();
+
+    history = historialReverso.slice(0, 8);
   }
-  /*const historial = [
 
-    { anyo: { fecha: data.data[0].fecha, barrio: "Barrio: " + data.data[0].barrio, habit: " Habitaciones: " + data.data[0].hab }, precio: data.data[0].area },
-    { anyo: { fecha: data.data[1].fecha, barrio: "Barrio: " + data.data[1].barrio, habit: " Habitaciones: " + data.data[1].hab }, precio: data.data[1].area },
-    { anyo: { fecha: data.data[2].fecha, barrio: "Barrio: " + data.data[2].barrio, habit: " Habitaciones: " + data.data[2].hab }, precio: data.data[2].area },
-    { anyo: { fecha: data.data[3].fecha, barrio: "Barrio: " + data.data[3].barrio, habit: " Habitaciones: " + data.data[3].hab }, precio: data.data[3].area },
-    { anyo: { fecha: data.data[4].fecha, barrio: "Barrio: " + data.data[4].barrio, habit: " Habitaciones: " + data.data[4].hab }, precio: data.data[4].area },
-
-  ]*/
-
-
-
+  console.log(history);
 
   return (
-    <div></div>
-  )
 
-}
+    <ResponsiveContainer width="100%" height="80%">
+      <BarChart width={800} height={500} data={history}>
+        <Bar dataKey="precio" fill="#2196F3" />
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis xAxisId="0" dataKey="anyo.fecha" />
+        <XAxis xAxisId="1" dataKey="anyo.barrio" />
+        <XAxis xAxisId="2" dataKey="anyo.habit" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+      </BarChart>
+      </ResponsiveContainer>
+   
+
+  );
+};

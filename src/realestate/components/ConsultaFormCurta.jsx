@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { dataFetch } from "../../helpers/dataFetch";
 import { format } from "date-fns";
 import { DayPick } from "./DayPick";
+import { UserContext } from "../../context/UserContext";
+import { GraphicsCorto } from "./GraphicsCorto";
 
 export const ConsultaFormCurta = () => {
   const {
@@ -12,6 +14,8 @@ export const ConsultaFormCurta = () => {
     watch,
     formState: { errors },
   } = useForm();
+
+
   const selectedDistrito = watch("distrito");
   const [formData, setFormData] = useState(null);
   const [data, setData] = useState(null);
@@ -23,15 +27,21 @@ export const ConsultaFormCurta = () => {
   const nextDate = new Date(dateOne);
   nextDate.setDate(nextDate.getDate() + 1);
   const [dateTwo, setDateTwo] = useState(nextDate);
+  const { userStatus } = useContext(UserContext);
+  const { uid } = userStatus
+  const [activeGrafico , setActiveGrafico] = useState(false)
+    const [graphKey , setGraphKey] = useState(0)
+  
 
   const onSubmit = async (data) => {
-    setError(null); 
+    setError(null);
     //format dates received from datePick usestate hook
     const formattedDateOne = format(dateOne, "dd/MM/yyyy");
     const formattedDateTwo = format(dateTwo, "dd/MM/yyyy");
     //join dates as per API format requirement
     const fechas = `${formattedDateOne}-${formattedDateTwo}`;
     //add to data object
+
     const newData = {
       ...data,
       accommodates: parseInt(data.accommodates, 10),
@@ -41,9 +51,11 @@ export const ConsultaFormCurta = () => {
       num_bathrooms: parseInt(data.num_bathrooms, 10),
       fechas,
     };
+
     console.log(newData);
     setFormData(newData);
     setIsLoading(true);
+    setActiveGrafico(true)
 
     try {
       const response = await dataFetch(
@@ -54,8 +66,40 @@ export const ConsultaFormCurta = () => {
 
       //Manejando respuesta
       if (response.ok) {
+
         setData(response.data);
+        setGraphKey(graphKey + 1)
         console.log("Response from server:", response.data);
+
+
+        const precioMinimo = response.data.precio_minimo_estancia;
+        const precioMaximo = response.data.precio_maximo_estancia;
+        const precioMinimoDia = response.data.precio_minimo_por_dia;
+        const precioMaximoDia = response.data.precio_maximo_por_dia;
+
+        console.log("PRECIO MINIMO:", response.data.precio_minimo_estancia)
+        console.log("PRECIO MAXIMO:", response.data.precio_maximo_estancia)
+        console.log("PRECIO MINIMO DIA :", response.data.precio_minimo_por_dia)
+        console.log("PRECIO MAXIMO DIA:", response.data.precio_maximo_por_dia)
+
+        const body = {
+          ...data,
+          precio_minimo_estancia: precioMinimo,
+          precio_maximo_estancia: precioMaximo,
+          precio_minimo_por_dia: precioMinimoDia,
+          precio_maximo_por_dia: precioMaximoDia,
+          uid: uid,
+          estanc: "corta"
+        }
+
+        console.log("body:", body)
+
+        const user = await dataFetch("http://localhost:3000/api/v1/consulta/crearcorta", 'POST', body)
+        console.log(user)
+
+
+
+
       } else {
         throw new Error(response.msg);
       }
@@ -64,7 +108,7 @@ export const ConsultaFormCurta = () => {
       console.error("Error in fetch:", error);
     } finally {
       setIsLoading(false);
-      reset();
+      // reset();
     }
   };
 
@@ -432,54 +476,54 @@ export const ConsultaFormCurta = () => {
 
 
       {data && !isLoading && (
-  <div className="w-full md:w-auto max-w-xl mx-auto" >
-    <div className="flex flex-col items-center justify-center p-8 bg-gray-100 rounded-lg shadow-md text-center h-full">
-      <p className="text-3xl font-semibold text-gray-800 mb-4">
-        ¡Gracias por su consulta!
-      </p>
-      <p className="text-lg text-gray-800">
-        Según su búsqueda, los precios estimados son los siguientes:
-      </p>
-      <div className="grid grid-cols-2 gap-4 mt-6">
-        <div className="bg-white p-4 rounded-lg text-center">
-          <p className="text-xl font-bold text-green-800 mb-2">
-            Precio mínimo por día
-          </p>
-          <p className="text-3xl font-bold text-green-800">
-            €{data.precio_minimo_por_dia}
-          </p>
+        <div className="w-full md:w-auto max-w-xl mx-auto" >
+          <div className="flex flex-col items-center justify-center p-8 bg-gray-100 rounded-lg shadow-md text-center h-full">
+            <p className="text-3xl font-semibold text-gray-800 mb-4">
+              ¡Gracias por su consulta!
+            </p>
+            <p className="text-lg text-gray-800">
+              Según su búsqueda, los precios estimados son los siguientes:
+            </p>
+            <div className="grid grid-cols-2 gap-4 mt-6">
+              <div className="bg-white p-4 rounded-lg text-center">
+                <p className="text-xl font-bold text-green-800 mb-2">
+                  Precio mínimo por día
+                </p>
+                <p className="text-3xl font-bold text-green-800">
+                  €{data.precio_minimo_por_dia}
+                </p>
+              </div>
+              <div className="bg-white p-4 rounded-lg text-center">
+                <p className="text-xl font-bold text-green-800 mb-2">
+                  Precio máximo por día
+                </p>
+                <p className="text-3xl font-bold text-green-800">
+                  €{data.precio_maximo_por_dia}
+                </p>
+              </div>
+              <div className="bg-white p-4 rounded-lg text-center">
+                <p className="text-xl font-bold text-blue-800 mb-2">
+                  Precio mínimo de estancia
+                </p>
+                <p className="text-3xl font-bold text-blue-800">
+                  €{data.precio_minimo_estancia}
+                </p>
+              </div>
+              <div className="bg-white p-4 rounded-lg text-center">
+                <p className="text-xl font-bold text-blue-800 mb-2">
+                  Precio máximo de estancia
+                </p>
+                <p className="text-3xl font-bold text-blue-800">
+                  €{data.precio_maximo_estancia}
+                </p>
+              </div>
+            </div>
+            <p className="text-lg text-gray-800 mt-6">
+              ¡Esperamos que esta información le sea útil!
+            </p>
+          </div>
         </div>
-        <div className="bg-white p-4 rounded-lg text-center">
-          <p className="text-xl font-bold text-green-800 mb-2">
-            Precio máximo por día
-          </p>
-          <p className="text-3xl font-bold text-green-800">
-            €{data.precio_maximo_por_dia}
-          </p>
-        </div>
-        <div className="bg-white p-4 rounded-lg text-center">
-          <p className="text-xl font-bold text-blue-800 mb-2">
-            Precio mínimo de estancia
-          </p>
-          <p className="text-3xl font-bold text-blue-800">
-            €{data.precio_minimo_estancia}
-          </p>
-        </div>
-        <div className="bg-white p-4 rounded-lg text-center">
-          <p className="text-xl font-bold text-blue-800 mb-2">
-            Precio máximo de estancia
-          </p>
-          <p className="text-3xl font-bold text-blue-800">
-            €{data.precio_maximo_estancia}
-          </p>
-        </div>
-      </div>
-      <p className="text-lg text-gray-800 mt-6">
-        ¡Esperamos que esta información le sea útil!
-      </p>
-    </div>
-  </div>
-)}
+      )}
 
 
 
@@ -502,6 +546,19 @@ export const ConsultaFormCurta = () => {
           </div>
         </div>
       )}
+
+      {/* GRAfico*/}
+      <div className="md:w-1/2 px-4 h-[500px]">
+  {activeGrafico && (
+    <div className="p-6 bg-gray-100 rounded-lg shadow-md h-full">
+        <GraphicsCorto key={graphKey} />
+        </div>
+  )}
+</div>
+
+
+
+
     </>
   );
 };

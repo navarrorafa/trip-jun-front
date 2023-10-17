@@ -14,22 +14,29 @@ export const ConsultaForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { userStatus} = useContext(UserContext);
     const {uid} = userStatus
-    console.log(uid)
+    const [activeGrafico , setActiveGrafico] = useState(false)
+    const [graphKey , setGraphKey] = useState(0)
+  
 
    
+
+
+
 
     const onSubmit = async (data) => {
         setFormData(data); 
         setIsLoading(true);
+        setActiveGrafico(true)
+       
     
         try {
             const response = await dataFetch("http://127.0.0.1:3500/api/predict", 'POST', data);
             console.log("formulario",data)
             //Manejando respuesta
             if(response.ok){
-
+                
                 setData(response.data);
-
+                setGraphKey(graphKey + 1)
                 console.log('Response from server:', response.data);
                 console.log(response.data.prediction)
                 const precio = response.data.prediction.toString()
@@ -100,7 +107,7 @@ export const ConsultaForm = () => {
             
             <div className="flex-1">
             <div>
-                <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full">
+                <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full max-w-xl mx-auto">
                     <div className="flex flex-col space-y-2">
 
                         {/* TIPO DE ESTANCIA */}
@@ -267,7 +274,15 @@ export const ConsultaForm = () => {
 )}
 
 
-<Graphics/>
+ 
+
+<div className="w-full px-4 h-[500px]">
+  {activeGrafico && (
+    <div className="p-6 bg-gray-100 rounded-lg shadow-md h-full">
+      <Graphics key={graphKey} />
+    </div>
+  )}
+</div>
 
         </>
     )
