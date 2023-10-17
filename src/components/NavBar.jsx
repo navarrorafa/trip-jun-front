@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { auth } from "../auth/config/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { LogoutButton } from "../auth/components/LogoutButton";
+import { DropdownAccount } from "../realestate/components/DropdownAccount";
 
 export const NavBar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -24,8 +25,7 @@ export const NavBar = () => {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `text-white hover:text-blue-300 ${
-                  isActive ? "text-blue-500" : ""
+                `text-white hover:text-blue-300 ${isActive ? "text-blue-500" : ""
                 }`
               }
             >
@@ -34,8 +34,7 @@ export const NavBar = () => {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `text-white hover:text-blue-300 ${
-                  isActive ? "text-blue-500" : ""
+                `text-white hover:text-blue-300 ${isActive ? "text-blue-500" : ""
                 }`
               }
             >
@@ -44,13 +43,13 @@ export const NavBar = () => {
             <NavLink
               to="/contact"
               className={({ isActive }) =>
-                `text-white hover:text-blue-300 ${
-                  isActive ? "text-blue-500" : ""
+                `text-white hover:text-blue-300 ${isActive ? "text-blue-500" : ""
                 }`
               }
             >
               Contacto
             </NavLink>
+            {isAuthenticated && <DropdownAccount />}
           </div>
 
           <div className="mt-4 md:mt-0">
