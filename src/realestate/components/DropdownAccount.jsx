@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
+import { Link } from "react-router-dom";
 
 export const DropdownAccount = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -22,25 +23,25 @@ export const DropdownAccount = () => {
       {isOpen && (
         <ul className="absolute text-gray-800 bg-white border border-gray-200 mt-2 space-y-1 z-10 rounded-md" onMouseEnter={() => setIsOpen(true)}>
           <li>
-            <a className="block px-4 py-2 hover:bg-gray-100" href="">
+            <Link className="block px-4 py-2 hover:bg-gray-100" to="">
               Mis consultas
-            </a>
+            </Link>
           </li>
           <li>
-            <a className="block px-4 py-2 hover:bg-gray-100" href="">
+            <Link className="block px-4 py-2 hover:bg-gray-100" to="">
               Editar email
-            </a>
+            </Link>
           </li>
           <li>
-            <a className="block px-4 py-2 hover:bg-gray-100" href="">
+            <Link className="block px-4 py-2 hover:bg-gray-100" to="">
               Editar contraseña
-            </a>
+            </Link>
           </li>
           <li className="border-t border-gray-200"></li>
           <li>
-            <a className="block px-4 py-2 hover-bg-gray-100" href="">
+            <Link className="block px-4 py-2 hover-bg-gray-100" to="/delete">
               Borrar cuenta
-            </a>
+            </Link>
           </li>
         </ul>
       )}
