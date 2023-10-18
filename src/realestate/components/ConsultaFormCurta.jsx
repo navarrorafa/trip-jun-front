@@ -299,7 +299,7 @@ export const ConsultaFormCurta = () => {
           errors.distrito ? "border-red-500" : ""
         }`}
       >
-        <option value=""> ------- </option>
+        <option value="" selected disabled>Seleccione distrito</option>
         {Object.keys(distritosBairros).map((distrito) => (
           <option key={distrito} value={distrito}>
             {distrito}
@@ -325,7 +325,7 @@ export const ConsultaFormCurta = () => {
           errors.neighbourhood_encoded ? "border-red-500" : ""
         }`}
       >
-        <option value=""> ------- </option>
+        <option value="" selected disabled>Seleccione barrio</option>
         {selectedDistrito &&
           distritosBairros[selectedDistrito].map((bairro) => (
             <option key={bairro} value={bairro}>
@@ -342,9 +342,12 @@ export const ConsultaFormCurta = () => {
 
     {/* TIPO DE HABITACION */}
     <div className="flex flex-col space-y-2">
-      <label htmlFor="room_type_encoded">Tipo de Habitación</label>
-      <select {...register("room_type_encoded", { required: true })}>
-        <option> ------- </option>
+      <label htmlFor="room_type_encoded" className="font-semibold">Tipo de Vivienda</label>
+      <select {...register("room_type_encoded", { required: true })}
+      className={`p-2 border rounded-md ${
+        errors.room_type_encoded ? "border-red-500" : ""
+      }`}>
+        <option value="" selected disabled>Seleccione tipo de vivienda</option>
         <option value="Private room">Habitación Privada</option>
         <option value="Entire home/apt">Casa/ Piso completo</option>
         <option value="Shared room">Habitación Compartida</option>
@@ -353,7 +356,7 @@ export const ConsultaFormCurta = () => {
 
     {/* CAPACIDADE ALOJAMIENTO */}
     <div className="flex flex-col space-y-2">
-      <label htmlFor="accommodates">
+      <label htmlFor="accommodates" className="font-semibold">
         Número de huespedes
       </label>
       <input
@@ -363,6 +366,7 @@ export const ConsultaFormCurta = () => {
         })}
         type="number"
         name="accommodates"
+        className="p-2 border rounded-md"
       />
       {errors.accommodates && (
         <span className="text-xs text-red-500">
@@ -373,7 +377,7 @@ export const ConsultaFormCurta = () => {
 
     {/* HABITACIONES */}
     <div className="flex flex-col space-y-2">
-      <label htmlFor="bedrooms">
+      <label htmlFor="bedrooms" className="font-semibold">
         Número de habitaciones
       </label>
       <input
@@ -383,6 +387,7 @@ export const ConsultaFormCurta = () => {
         })}
         type="number"
         name="bedrooms"
+        className="p-2 border rounded-md"
       />
       {errors.bedrooms && (
         <span className="text-xs text-red-500">
@@ -393,7 +398,7 @@ export const ConsultaFormCurta = () => {
 
     {/* CAMAS*/}
     <div className="flex flex-col space-y-2">
-      <label htmlFor="beds">
+      <label htmlFor="beds" className="font-semibold">
         Número de Camas
       </label>
       <input
@@ -403,6 +408,7 @@ export const ConsultaFormCurta = () => {
         })}
         type="number"
         name="beds"
+        className="p-2 border rounded-md"
       />
       {errors.beds && (
         <span className="text-xs text-red-500">
@@ -413,7 +419,7 @@ export const ConsultaFormCurta = () => {
 
     {/* BAÑOS */}
     <div className="flex flex-col space-y-2">
-      <label htmlFor="num_bathrooms">Número de Baños</label>
+      <label htmlFor="num_bathrooms" className="font-semibold">Número de Baños</label>
       <input
         {...register("num_bathrooms", {
           required: "Necesitamos saber el número de baños",
@@ -421,6 +427,7 @@ export const ConsultaFormCurta = () => {
         })}
         type="number"
         name="num_bathrooms"
+        className="p-2 border rounded-md"
       />
       {errors.num_bathrooms && (
         <span className="text-xs text-red-500">
@@ -444,7 +451,7 @@ export const ConsultaFormCurta = () => {
 
     {/* REVIEWS */}
     <div className="flex flex-col space-y-2">
-      <label htmlFor="Grouped_reviews">Indique la evaluación del anuncio</label>
+      <label htmlFor="Grouped_reviews" className="font-semibold">Indique la evaluación del anuncio</label>
       <input
         {...register("Grouped_reviews", {
           required: "Indica la valoración del anuncio",
@@ -452,6 +459,7 @@ export const ConsultaFormCurta = () => {
         })}
         type="number"
         name="Grouped_reviews"
+        className="p-2 border rounded-md"
       />
       {errors.Grouped_reviews && (
         <span className="text-xs text-red-500">

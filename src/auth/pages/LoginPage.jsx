@@ -34,8 +34,8 @@ export const LoginPage = () => {
   return (
     <>
       <section className="pb-20">
-        <h1 className="text-2xl md:text-3xl text-center tracking-wide pt-10 md:pt-16">
-          Bienvenido!
+        <h1 className="text-2xl md:text-3xl text-center tracking-wide pt-10 md:pt-16 font-semibold">
+          Iniciar sesión
         </h1>
         <article>
           <AccessForm logregUser={logregUser} alreadyUser={true} />
