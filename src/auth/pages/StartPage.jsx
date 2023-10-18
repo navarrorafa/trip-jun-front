@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import macbook from "../../assets/macbook.jpg";
-import striped_jumpsuit from "../../assets/striped_jumpsuit.jpg";
 
 export const StartPage = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -25,10 +23,6 @@ export const StartPage = () => {
     <>
         <section className="relative h-screen w-screen grid place-items-center overflow-hidden">
           <div className="relative w-screen h-screen">
-            {/* <img
-              className="absolute inset-0 w-full h-full object-cover z-0"
-              src={screenWidth < 768 ? striped_jumpsuit : macbook}
-            /> */}
             <iframe
               src={
                 screenWidth < 600
@@ -37,7 +31,6 @@ export const StartPage = () => {
               }
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
-              //className="absolute left-0 right-0 w-full"
               className="absolute inset-0 top-1/2 -translate-y-1/2 pb-16"
               style={{width: "100%", height: "200%"}}
 
@@ -99,15 +92,6 @@ export const StartPage = () => {
                   puedes tomar una decisión corroborada y segura.
                 </p>
               </div>
-            </div>
-
-            <div className="text-center mt-8">
-              <Link
-                to="/register"
-                className="bg-gray-800 text-xl text-white px-6 py-3 rounded-md  hover:bg-blue-600 transition-all duration-300"
-              >
-                Regístrate
-              </Link>
             </div>
           </div>
         </section>

@@ -22,7 +22,7 @@ export const NavBar = () => {
 
   return (
     <>
-      <nav className="bg-gray-800 p-4">
+      <nav className="p-4">
         <div className="container mx-auto flex flex-wrap justify-between items-center">
           <div className="flex gap-4">
             <NavLink
@@ -57,10 +57,10 @@ export const NavBar = () => {
 
           <div className="mt-4 md:mt-0">
             {isAuthenticated ? (
-              <div>
-                <LogoutButton setIsAuthenticated={setIsAuthenticated} />
-                <p className="text-white p-1">Hola <strong>{name}</strong></p>
-              </div>
+              <div className="flex flex-col sm:flex-row-reverse">               
+              <LogoutButton setIsAuthenticated={setIsAuthenticated} />
+              <p className="text-white p-1 sm:pe-3">Hola <strong>{name}</strong></p>
+            </div>
             ) : (
               <Link to="/login">
                 <button
