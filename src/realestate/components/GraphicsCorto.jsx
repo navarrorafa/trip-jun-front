@@ -52,7 +52,7 @@ export const GraphicsCorto = () => {
         <Bar dataKey="min" fill="#2196F3" />
         <Bar dataKey="max" fill="#0D4FD4" />
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis xAxisId="0" dataKey="date" />
+        <XAxis xAxisId="0" dataKey="date" tick={false} />
         <XAxis xAxisId="1" dataKey="barrio" dx={5} />
         <XAxis xAxisId="2" dataKey="estrellas" />
         <XAxis xAxisId="3" dataKey="bedrooms" />
