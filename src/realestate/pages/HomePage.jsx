@@ -17,7 +17,7 @@ export const HomePage = () => {
       </section>
 
       <section className="p-6 md:p-12">
-        <div className=" mx-auto">
+       
           <h3 className="text-2xl font-semibold mb-6 text-center">
             Tipo de Estancia
           </h3>
@@ -41,11 +41,10 @@ export const HomePage = () => {
             </button>
           </div>
 
-          <div className="flex flex-wrap  gap-6  mx-auto">
             {mostrarFormulario === "larga" && <ConsultaForm /> }
             {mostrarFormulario === "corta" && <ConsultaFormCurta />}
-          </div>
-        </div>
+         
+        
       </section>
     </>
   );

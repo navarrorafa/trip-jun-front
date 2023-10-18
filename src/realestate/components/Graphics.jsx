@@ -43,7 +43,7 @@ export const Graphics = () => {
 
   return (
 
-    <ResponsiveContainer width="100%" height="80%">
+    <ResponsiveContainer width="100%" height="100%">
       <BarChart width={800} height={500} data={history}>
         <Bar dataKey="precio" fill="#2196F3" />
         <CartesianGrid strokeDasharray="3 3" />
