@@ -28,8 +28,8 @@ export const DeleteAccPage = () => {
     return (
         <>
             <section className="pb-20">
-                <h1 className="text-2xl md:text-3xl text-center tracking-wide pt-10 md:pt-16">
-                    Atención!
+                <h1 className="text-2xl md:text-3xl text-center tracking-wide pt-10 md:pt-16 font-semibold">
+                    Borrar cuenta
                 </h1>
                 <article className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full max-w-xl mx-5 md:m-auto block mt-10 md:mt-16">
                     <h2 className="text-lg md:text-xl tracking-wide">Este paso es irreversible.</h2>
@@ -38,7 +38,7 @@ export const DeleteAccPage = () => {
                             className="font-bold underline hover:text-blue-950"
                         >Sigue haciendo consultas.</Link>
                     </p>
-                    <p>Si pulsas el botón rojo eliminarás tu cuenta sin vuelta atrás.</p>
+                    <p>Si pulsas el botón rojo eliminarás tu cuenta definitivamente.</p>
                     <button className='w-full p-3 text-white bg-red-500 rounded-full hover:bg-red-700 transition-all duration-300' onClick={deletear}>Borrar cuenta definitivamente</button>
                     <p className="my-6 text-red-500 md:text-lg text-center">{errors}</p>
                 </article>
