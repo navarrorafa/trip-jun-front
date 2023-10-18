@@ -28,7 +28,6 @@ export const AppRouter = () => {
       <Routes>
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/about" element={<AboutUsPage />} />
-        <Route path="/myqueries" element={<MyQueriesPage />} />
         <Route path="/editpass" element={<EditPassPage />} />
         <Route path="/delete" element={<DeleteAccPage />} />
         {!isAuthenticated ? (
