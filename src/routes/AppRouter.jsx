@@ -2,11 +2,15 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { AuthRouter } from "./AuthRouter";
 import { RealestateRouter } from "./RealestateRouter";
-import { ContactPage, AboutUsPage, DeleteAccPage, EditPassPage, MyQueriesPage } from "../realestate/pages/index";
+import {
+  ContactPage,
+  AboutUsPage,
+  DeleteAccPage,
+  EditPassPage,
+} from "../realestate/pages/index";
 import { auth } from "../auth/config/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { UserContext } from "../context/UserContext";
-
 
 export const AppRouter = () => {
   const { setUserStatus } = useContext(UserContext);
@@ -16,7 +20,7 @@ export const AppRouter = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         setIsAuthenticated(true);
-        setUserStatus({ uid: user.uid, name: user.displayName })
+        setUserStatus({ uid: user.uid, name: user.displayName });
       } else {
         setIsAuthenticated(false);
       }
