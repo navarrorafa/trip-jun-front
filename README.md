@@ -59,9 +59,8 @@ Asegúrate de tener instalado lo siguiente en tu sistema antes de comenzar:
 
 La estructura del proyecto está organizada de la siguiente manera:
 
-/public: Contiene archivos estáticos.
-/src: Aquí es donde se encuentra el código fuente de la aplicación React.
-
+- /public: Contiene archivos estáticos.
+- /src: Aquí es donde se encuentra el código fuente de la aplicación React.
 - /assets: recursos como imagenes utilizados en el proyecto
 - /auth: carpeta donde se guardan páginas y componentes accessibles al usuario antes de registrarse
 - /components: Carpeta donde se encuentran los componentes React comun a traves de todas las secciones del proyecto.
@@ -78,15 +77,15 @@ La estructura del proyecto está organizada de la siguiente manera:
 APIs are used to send to and receive from data base. Three APIs are used:
 
 1. API que se conecta a una aplicación de "machine learning" y recoge una prediccion basado en los datos enviado en la solicitud. Predicción sobre precio de alquileres de LARGA estancia.
-   Documentación:
+   <br /> Documentación:
 
 2. API que se conecta a una aplicación de "machine learning" y recoge una prediccion basado en los datos enviado en la solicitud. Predicción sobre precio de alquileres de CORTA estancia.
-   Documentación:
+   <br /> Documentación:
 
 3. API que guarda y accede a una base de datos MongoDB donde se guardan las solicitudes hechos a las dos primeras APIS. Datos y predicción guardado.
-   Github repository de esta API: https://github.com/navarrorafa/trip-jun-back
-   Documentación:
+   <br /> Github repository de esta API: https://github.com/navarrorafa/trip-jun-back
+   <br /> Documentación:
 
 ## Sitio Web
 
-Sitio web desplegado se encuentra en: https://trip-jun-bridge.netlify.app
+Sitio web desplegado se encuentra en:<br /> https://trip-jun-bridge.netlify.app
