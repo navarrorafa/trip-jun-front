@@ -23,7 +23,7 @@ export const DropdownAccount = () => {
       {isOpen && (
         <ul className="absolute text-gray-800 bg-white border border-gray-200 mt-2 space-y-1 z-10 rounded-md" onMouseEnter={() => setIsOpen(true)}>
           <li>
-            <Link className="block px-4 py-2 hover:bg-gray-100" to="">
+            <Link className="block px-4 py-2 hover:bg-gray-100" to="/myqueries">
               Mis consultas
             </Link>
           </li>
