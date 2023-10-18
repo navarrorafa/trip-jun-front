@@ -3,46 +3,58 @@ import { useForm } from 'react-hook-form';
 import { dataFetch } from '../../helpers/dataFetch';
 import { ClipLoader } from "react-spinners";
 import { UserContext } from '../../context/UserContext';
+import { Graphics } from './Graphics';
 
 
 export const ConsultaForm = () => {
-    const { register,reset, handleSubmit, formState: { errors } } = useForm();
+    const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const [formData, setFormData] = useState(null);
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const { userStatus} = useContext(UserContext);
-    const {uid} = userStatus
+
+    const { userStatus } = useContext(UserContext);
+    const { uid } = userStatus
+    const [activeGrafico, setActiveGrafico] = useState(false)
+    const [graphKey, setGraphKey] = useState(0)
+
+
+
+
+
+
 
     const onSubmit = async (data) => {
-        setFormData(data); 
+        setFormData(data);
         setIsLoading(true);
-    
+        setActiveGrafico(true)
+
+
         try {
             const response = await dataFetch("http://127.0.0.1:3500/api/predict", 'POST', data);
-            console.log("formulario",data)
+            console.log("formulario", data)
             //Manejando respuesta
-            if(response.ok){
+            if (response.ok) {
 
                 setData(response.data);
-
+                setGraphKey(graphKey + 1)
                 console.log('Response from server:', response.data);
                 console.log(response.data.prediction)
                 const precio = response.data.prediction.toString()
-                console.log("PRECIO :" , precio)
+                console.log("PRECIO :", precio)
 
 
-                const body = {...data, prediction : precio, uid : uid , estanc:"larga" ,}
-                
-                console.log("body:" , body)
+                const body = { ...data, prediction: precio, uid: uid, estanc: "larga", }
+
+                console.log("body:", body)
                 const user = await dataFetch("http://localhost:3000/api/v1/consulta/crear", 'POST', body)
-              console.log(user)
+                console.log(user)
 
-                
+
             } else {
                 throw new Error(response.msg);
             }
-    
+
         } catch (error) {
             setError(error.message);
             console.error("Error in fetch:", error);
@@ -51,8 +63,8 @@ export const ConsultaForm = () => {
             reset();
         }
     };
-        
- 
+
+
 
 
     const distritosArray = [
@@ -93,10 +105,14 @@ export const ConsultaForm = () => {
 
     return (
         <>
-            
-            <div className="flex-1">
-            <div>
-                <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full">
+
+            <div className="flex flex-wrap justify-center ">
+
+
+            {/* space-y-3 h-full  max-w-xl mx-auto */}
+
+                 
+                <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-100 p-14 rounded-lg shadow-md space-y-3 h-full min-w-fit  m-4 ">
                     <div className="flex flex-col space-y-2">
 
                         {/* TIPO DE ESTANCIA */}
@@ -200,6 +216,34 @@ export const ConsultaForm = () => {
                     />
                     {errors.furnished && <span className="text-xs text-red-500">{errors.furnished.message}</span>}
 
+                    {/* CONDICIONES  */}
+
+                    <div className="flex flex-col space-y-2">
+                        <label>¿En que condicion se encuentra la propiedad?</label>
+                    </div>
+                    <label>Normal </label>
+                    <input
+                        {...register("condicion", { required: "Por favor, indique la condicion de la propiedad"  })}
+                        type="radio"
+                        name="condicion"
+                        value="normal"
+                    />
+                    <label>Alta Calidad</label>
+                    <input
+                        {...register("condicion", { required: "Por favor, indique la condicion de la propiedad"  })}
+                        type="radio"
+                        name="condicion"
+                        value="alta-calidad"
+                    />
+                      <label>Lujosa</label>
+                      <input
+                        {...register("condicion", { required: "Por favor, indique la condicion de la propiedad" })}
+                        type="radio"
+                        name="condicion"
+                        value="lujosa"
+                    />
+                     {errors.condicion && <span className="text-xs text-red-500">{errors.condicion.message}</span>}
+
 
 
                     <input
@@ -207,63 +251,73 @@ export const ConsultaForm = () => {
                         value="Enviar"
                         className="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition-all duration-300"
                     />
-                
-                 
+
+
                 </form>
-            </div >
-            </div >
+
+                {/* p-14 rounded-lg shadow-md space-y-3 h-full min-w-fit  m-4  */}
+
+                {data && !isLoading && (
+                    <div className="w-full md:w-auto m-4 ">
+                        <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
+                            <>
+                                <p className="text-2xl font-semibold text-gray-800 mb-4">
+                                    ¡Gracias por su consulta!
+                                </p>
+                                <p className="text-xl text-gray-800">
+                                    Basado en su búsqueda, la predicción mensual para su estadía de larga duración es de:
+                                </p>
+                                <p className="text-4xl pt-4 font-bold text-green-800  mt-2">
+                                    € {data.prediction}
+                                </p>
+                                <p className="text-xl pb-4 font-bold text-green-800 ">
+                                    mensuales
+                                </p>
+                                <p className="pb-4 font-bold text-green-800 ">{data.fiabilidad}</p>
+                                <p className="text-xl mt-4">
+                                    ¡Esperamos que esta información le sea útil!
+                                </p>
+                            </>
+                        </div>
+                    </div>
+
+                )}
 
 
-            {data && !isLoading && (
-    <div className="w-full md:w-auto">
-        <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
-        <>
-        <p className="text-2xl font-semibold text-gray-800 mb-4">
-          ¡Gracias por su consulta!
-        </p>
-        <p className="text-xl text-gray-800">
-          Basado en su búsqueda, la predicción mensual para su estadía de larga duración es de:
-        </p>
-        <p className="text-4xl pt-4 font-bold text-green-800  mt-2">
-          € {data.prediction} 
-        </p>
-        <p className="text-xl pb-4 font-bold text-green-800 ">
-          mensuales
-        </p>
-        <p className="pb-4 font-bold text-green-800 ">{data.fiabilidad}</p>
-        <p className="text-xl mt-4">
-          ¡Esperamos que esta información le sea útil!
-        </p>
-      </>
-        </div>
+                {/* Verifica se está carregando para exibir um loading spinner ou mensagem */}
+                {isLoading && (
+                    <div className="w-full md:w-auto ">
+                        <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
+                            <ClipLoader
+                                size={35} // Tamaño del spinner
+                                loading={isLoading}
+                                className="text-gray-800" // Agrega la clase de color aquí
+                            />
+                            <p className="mt-4 text-lg text-gray-800 font-semibold">Carregando...</p>
+                        </div>
+                    </div>
+                )}
+
+                {/* Verifica se existe um erro para exibir uma mensagem de erro */}
+                {error && (
+                    <div className="w-full md:w-auto">
+                        <div className="flex flex-col items-center justify-center p-6 bg-red-100 rounded-lg shadow-md text-center h-full">
+                            <p>Erro: {error}</p>
+                        </div>
+                    </div>
+                )}
+
+            </div>
+
+
+
+            <div className="min-w-full px-4 h-[500px] my-4">
+  {activeGrafico && (
+    <div className="p-6 bg-gray-100 rounded-lg shadow-md h-full max-w-[70%] mx-auto">
+      <Graphics key={graphKey} />
     </div>
-)}
-
-{/* Verifica se está carregando para exibir um loading spinner ou mensagem */}
-{isLoading && (
-   <div className="w-full md:w-auto">
-   <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
-     <ClipLoader
-       size={35} // Tamaño del spinner
-       loading={isLoading}
-       className="text-gray-800" // Agrega la clase de color aquí
-     />
-     <p className="mt-4 text-lg text-gray-800 font-semibold">Carregando...</p>
-   </div>
- </div>
-)}
-
-{/* Verifica se existe um erro para exibir uma mensagem de erro */}
-{error && (
-    <div className="w-full md:w-auto">
-        <div className="flex flex-col items-center justify-center p-6 bg-red-100 rounded-lg shadow-md text-center h-full">
-            <p>Erro: {error}</p>
-        </div>
-    </div>
-)}
-
-
-
+  )}
+</div>
 
         </>
     )
