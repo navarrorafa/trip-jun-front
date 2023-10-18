@@ -12,6 +12,7 @@ export const ConsultaForm = () => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
     const { userStatus } = useContext(UserContext);
     const { uid } = userStatus
     const [activeGrafico, setActiveGrafico] = useState(false)
@@ -21,7 +22,7 @@ export const ConsultaForm = () => {
 
 
 
-// 
+
 
     const onSubmit = async (data) => {
         setFormData(data);
