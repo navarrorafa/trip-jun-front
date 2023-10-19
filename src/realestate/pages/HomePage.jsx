@@ -29,7 +29,7 @@ export const HomePage = () => {
                 mostrarFormulario == "corta" ? "bg-blue-800" : "bg-blue-600"
               } text-white rounded-md hover:bg-blue-500 transition-all duration-300`}
             >
-              Corta Duración
+              Vacacional
             </button>
             <button
               onClick={() => setMostrarFormulario("larga")}
@@ -37,7 +37,7 @@ export const HomePage = () => {
                 mostrarFormulario == "larga" ? "bg-blue-800" : "bg-blue-600"
               } text-white rounded-md hover:bg-blue-500 transition-all duration-300`}
             >
-              Larga Duración
+              Media Estancia
             </button>
           </div>
 

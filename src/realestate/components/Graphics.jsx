@@ -7,7 +7,7 @@ export const Graphics = () => {
   const [user, setUser] = useState()
   const { userStatus } = useContext(UserContext);
   const { uid } = userStatus
-  const url = `http://localhost:3000/api/v1/consulta/${uid}`;
+  const url = `https://trip-jun-bridge-back.onrender.com/api/v1/consulta/${uid}`;
   const response = useFetch(url, "GET");
   const { data } = response;
 
