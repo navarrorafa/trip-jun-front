@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
-import { dataFetch } from "../../helpers/dataFetch";
+import React, { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { dataFetch } from '../../helpers/dataFetch';
 import { ClipLoader } from "react-spinners";
-import { UserContext } from "../../context/UserContext";
-import { Graphics } from "./Graphics";
+import { UserContext } from '../../context/UserContext';
+import { Graphics } from './Graphics';
+
 
 export const ConsultaForm = () => {
-
     const { register, reset, handleSubmit, formState: { errors }, watch } = useForm();
     const [formData, setFormData] = useState(null);
     const [data, setData] = useState(null);
@@ -105,18 +105,7 @@ export const ConsultaForm = () => {
 
                  
                 <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-100 p-14 rounded-lg shadow-md space-y-3 h-full min-w-fit  m-4 ">
-                    <div className="flex flex-col space-y-2">
-
-                        {/* TIPO DE ESTANCIA */}
-                        <label htmlFor="tipo">Tipo de estancia</label>
-                        <select {...register("tipo", { required: true })}>
-                            <option> ------- </option>
-                            <option value="Apartamento">Apartamento</option>
-                            <option value="Dúplex">Dúplex</option>
-                            <option value="Piso">Piso</option>
-                            <option value="Ático">Ático</option>
-                        </select>
-                    </div>
+                   
 
 {/* Campo de seleção de distrito */}
 <div className="flex flex-col space-y-2">
@@ -172,6 +161,19 @@ export const ConsultaForm = () => {
             </span>
           )}
         </div>
+
+        <div className="flex flex-col space-y-2">
+
+{/* TIPO DE ESTANCIA */}
+<label htmlFor="tipo">Tipo de estancia</label>
+<select {...register("tipo", { required: true })}>
+    <option> ------- </option>
+    <option value="Apartamento">Apartamento</option>
+    <option value="Dúplex">Dúplex</option>
+    <option value="Piso">Piso</option>
+    <option value="Ático">Ático</option>
+</select>
+</div>
 
 
                     {/* HABITACIONES */}
@@ -298,12 +300,12 @@ export const ConsultaForm = () => {
 
                 {/* Verifica se está carregando para exibir um loading spinner ou mensagem */}
                 {isLoading && (
-                    <div className="w-full md:w-auto ">
-                        <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
+                     <div className="w-full md:w-auto m-4 ">
+                     <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
                             <ClipLoader
                                 size={35} // Tamaño del spinner
                                 loading={isLoading}
-                                className="text-gray-800" // Agrega la clase de color aquí
+                                className="text-gray-800 mx-auto" // Agrega la clase de color aquí
                             />
                             <p className="mt-4 text-lg text-gray-800 font-semibold">Carregando...</p>
                         </div>
@@ -312,51 +314,25 @@ export const ConsultaForm = () => {
 
                 {/* Verifica se existe um erro para exibir uma mensagem de erro */}
                 {error && (
-                    <div className="w-full md:w-auto">
-                        <div className="flex flex-col items-center justify-center p-6 bg-red-100 rounded-lg shadow-md text-center h-full">
+                    <div className="w-full md:w-auto m-4 ">
+                    <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
                             <p>Erro: {error}</p>
                         </div>
                     </div>
                 )}
 
-
             </div>
-          </div>
-        )}
 
-        {/* Verifica se está carregando para exibir um loading spinner ou mensagem */}
-        {isLoading && (
-          <div className="w-full md:w-auto ">
-            <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
-              <ClipLoader
-                size={35} // Tamaño del spinner
-                loading={isLoading}
-                className="text-gray-800" // Agrega la clase de color aquí
-              />
-              <p className="mt-4 text-lg text-gray-800 font-semibold">
-                Carregando...
-              </p>
-            </div>
-          </div>
-        )}
 
-        {/* Verifica se existe um erro para exibir uma mensagem de erro */}
-        {error && (
-          <div className="w-full md:w-auto">
-            <div className="flex flex-col items-center justify-center p-6 bg-red-100 rounded-lg shadow-md text-center h-full">
-              <p>Erro: {error}</p>
-            </div>
-          </div>
-        )}
-      </div>
 
-      <div className="min-w-full px-4 h-[500px] my-4">
-        {activeGrafico && (
-          <div className="p-6 bg-gray-100 rounded-lg shadow-md h-full max-w-[70%] mx-auto">
-            <Graphics key={graphKey} />
-          </div>
-        )}
-      </div>
-    </>
-  );
-};
+            <div className="min-w-full px-4 h-[500px] my-4">
+  {activeGrafico && (
+    <div className="p-6 bg-gray-100 rounded-lg shadow-md h-full max-w-[70%] mx-auto">
+      <Graphics key={graphKey} />
+    </div>
+  )}
+</div>
+
+        </>
+    )
+}

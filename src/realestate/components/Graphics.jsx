@@ -33,7 +33,7 @@ export const Graphics = () => {
 
       fecha: item.fecha, 
       barrio: item.barrio, 
-      habit: "Cuartos:" + item.hab ,
+      habit: "Habs:" + item.hab ,
       precio: item.prediction
     }))
       .reverse();

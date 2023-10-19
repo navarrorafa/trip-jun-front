@@ -527,8 +527,8 @@ export const ConsultaFormCurta = () => {
 
   {/* Verifica se está carregando para exibir um loading spinner ou mensagem */}
   {isLoading && (
-    <div className="max-w-xl">
-      <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
+     <div className="max-w-xl m-4 ">
+     <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
         <p>Cargando...</p>
       </div>
     </div>
@@ -536,8 +536,8 @@ export const ConsultaFormCurta = () => {
 
   {/* Verifica se existe um erro para exibir uma mensagem de erro */}
   {error && (
-    <div className="max-w-xl">
-      <div className="flex flex-col items-center justify-center p-6 bg-red-100 rounded-lg shadow-md text-center h-full">
+     <div className="max-w-xl m-4 ">
+     <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
         <p>Error: {error}</p>
       </div>
     </div>
