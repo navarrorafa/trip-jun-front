@@ -31,7 +31,7 @@ export const ConsultaForm = () => {
 
 
     try {
-      const response = await dataFetch("http://127.0.0.1:3500/api/predict", 'POST', data);
+      const response = await dataFetch("https://proxyapidesafio.onrender.com/api1/predict", 'POST', data);
       //Manejando respuesta
       if (response.ok) {
 
@@ -42,7 +42,7 @@ export const ConsultaForm = () => {
 
         const body = { ...data, prediction: precio, uid: uid, estanc: "larga", }
 
-        const user = await dataFetch("http://localhost:3000/api/v1/consulta/crear", 'POST', body)
+        const user = await dataFetch("https://trip-jun-bridge-back.onrender.com/api/v1/consulta/crear", 'POST', body)
 
       } else {
         throw new Error(response.msg);
@@ -332,11 +332,12 @@ export const ConsultaForm = () => {
       {/* Grafico Historial*/}
       <div className=" px-4 h-[500px] my-4">
         {activeGrafico && (
-
-          <div className="p-6 bg-gray-100 w-full rounded-lg shadow-md h-full mx-auto max-w-6xl wGrafica">
+          <>
             <p className="text-xl font-semibold text-gray-800 mb-4 text-center">Historial de Consultas</p>
-            <Graphics key={graphKey} />
-          </div>
+            <div className="p-6 bg-gray-100 w-full rounded-lg shadow-md h-full mx-auto max-w-6xl wGrafica">
+              <Graphics key={graphKey} />
+            </div>
+          </>
         )}
       </div>
 

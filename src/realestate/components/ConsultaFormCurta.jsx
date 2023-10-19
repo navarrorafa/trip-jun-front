@@ -57,7 +57,7 @@ export const ConsultaFormCurta = () => {
 
     try {
       const response = await dataFetch(
-        "http://127.0.0.1:4500/api/predict",
+        "https://proxyapidesafio.onrender.com/api1/predict",
         "POST",
         newData
       );
@@ -83,7 +83,7 @@ export const ConsultaFormCurta = () => {
           estanc: "corta"
         }
 
-        const user = await dataFetch("http://localhost:3000/api/v1/consulta/crearcorta", 'POST', body)
+        const user = await dataFetch("https://trip-jun-bridge-back.onrender.com/api/v1/consulta/crearcorta", 'POST', body)
 
       } else {
         throw new Error(response.msg);
@@ -529,11 +529,12 @@ export const ConsultaFormCurta = () => {
       {/* Grafico de Historial*/}
       <div className=" px-4 h-[500px] my-4">
         {activeGrafico && (
-
-          <div className="p-6 bg-gray-100 w-full rounded-lg shadow-md h-full mx-auto max-w-6xl wGrafica">
-            <p className="text-xl font-semibold text-gray-800 mb-4 text-center">Historial de Consultas</p>
-            <GraphicsCorto key={graphKey} />
-          </div>
+          <>
+          <p className="text-xl font-semibold text-gray-800 mb-4 text-center">Historial de Consultas</p>
+            <div className="p-6 bg-gray-100 w-full rounded-lg shadow-md h-full mx-auto max-w-6xl wGrafica">              
+              <GraphicsCorto key={graphKey} />
+            </div>
+          </>
         )}
       </div>
     </>
