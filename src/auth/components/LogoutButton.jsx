@@ -18,6 +18,7 @@ export const LogoutButton = ({ setIsAuthenticated }) => {
   const logOut = async () => {
     try {
       await signOut(auth);
+      localStorage.removeItem("saveName");
       setUserStatus("unlogged");
       setIsAuthenticated(false);
       navigate("/");

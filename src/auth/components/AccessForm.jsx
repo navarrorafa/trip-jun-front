@@ -28,6 +28,13 @@ export const AccessForm = ({ logregUser, alreadyUser }) => {
       setPasswordMatch("");
     }
   };
+/**
+   * Función almacena el nombre de usuario en el localStorage para mostrar saludo sin hacer reload
+   */
+  const saveLocal = (ev) => {
+    const saveName = ev.target.value;
+    localStorage.setItem("saveName", JSON.stringify(saveName));
+  };
 
   return (
     <>
@@ -48,6 +55,7 @@ export const AccessForm = ({ logregUser, alreadyUser }) => {
               type="text"
               id="name"
               name="name"
+              onChange={saveLocal}
               className="flex flex-col space-y-2 p-2 rounded-lg w-full"
             />
           </>
