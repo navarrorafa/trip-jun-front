@@ -283,7 +283,7 @@ export const ConsultaFormCurta = () => {
      <div className="flex flex-wrap justify-center space-y-4">
   <form
     onSubmit={handleSubmit(onSubmit)}
-    className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full max-w-xl"
+    className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full max-w-xl w-full  m-4"
   >
     {/* Campo de seleção de distrito */}
     <div className="flex flex-col space-y-2">
@@ -546,8 +546,10 @@ export const ConsultaFormCurta = () => {
 
 {/* GRAfico*/}
 <div className=" px-4 h-[500px] my-4">
-  {activeGrafico && (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-md h-full max-w-[70%] mx-auto">
+        {activeGrafico && (
+          
+          <div className="p-6 bg-gray-100 w-full rounded-lg shadow-md h-full mx-auto max-w-6xl wGrafica">
+          <p className="text-xl font-semibold text-gray-800 mb-4 text-center">Historial de Consultas</p>
       <GraphicsCorto key={graphKey} />
     </div>
   )}
@@ -560,3 +562,6 @@ export const ConsultaFormCurta = () => {
     </>
   );
 };
+
+
+
