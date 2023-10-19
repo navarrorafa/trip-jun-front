@@ -32,24 +32,17 @@ export const ConsultaForm = () => {
 
     try {
       const response = await dataFetch("http://127.0.0.1:3500/api/predict", 'POST', data);
-      console.log("formulario", data)
       //Manejando respuesta
       if (response.ok) {
 
         setData(response.data);
         setGraphKey(graphKey + 1)
-        console.log('Response from server:', response.data);
 
         const precio = response.data.prediction.toString()
 
-
-
         const body = { ...data, prediction: precio, uid: uid, estanc: "larga", }
 
-
         const user = await dataFetch("http://localhost:3000/api/v1/consulta/crear", 'POST', body)
-
-
 
       } else {
         throw new Error(response.msg);
@@ -89,25 +82,15 @@ export const ConsultaForm = () => {
     'Vicálvaro': ['Casco histórico de Vicálvaro', 'Ambroz', 'El Cañaveral - Los Berrocales', 'Valdebernardo - Valderribas']
   };
 
-
-
-
-
   return (
     <>
 
-
-
       <div className="flex flex-wrap justify-center ">
-
-
-        {/* space-y-3 h-full  max-w-xl mx-auto */}
-
 
         <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full max-w-xl w-full  m-4 ">
 
 
-          {/* Campo de seleção de distrito */}
+          {/* Campo de selección de distrito */}
           <div className="flex flex-col space-y-2">
             <label className="font-semibold" htmlFor="distrito">
               Distrito
@@ -115,12 +98,12 @@ export const ConsultaForm = () => {
             <select
               id="distrito"
               {...register("distrito", {
-                required: "Por favor, selecione um distrito.",
+                required: "Por favor, selecione un distrito.",
               })}
-              className={`p-2 border rounded-md ${errors.distrito ? "border-red-500" : ""
+              className={`p-2 border rounded-md bg-white ${errors.distrito ? "border-red-500" : ""
                 }`}
             >
-              <option value=""> ------- </option>
+              <option value="" selected disabled>Seleccione distrito</option>
               {Object.keys(distritosBairros).map((distrito) => (
                 <option key={distrito} value={distrito}>
                   {distrito}
@@ -132,7 +115,7 @@ export const ConsultaForm = () => {
             )}
           </div>
 
-          {/* Campo de seleção de bairro */}
+          {/* Campo de selección de barrio */}
           <div className="flex flex-col space-y-2">
             <label className="font-semibold" htmlFor="barrio">
               Barrio
@@ -140,12 +123,12 @@ export const ConsultaForm = () => {
             <select
               id="barrio"
               {...register("barrio", {
-                required: "Por favor, selecione um bairro.",
+                required: "Por favor, selecione un barrio.",
               })}
-              className={`p-2 border rounded-md ${errors.barrio ? "border-red-500" : ""
+              className={`p-2 border rounded-md bg-white ${errors.barrio ? "border-red-500" : ""
                 }`}
             >
-              <option value="" > ------- </option>
+              <option value="" selected disabled>Seleccione barrio</option>
               {selectedDistrito &&
                 distritosBairros[selectedDistrito].map((barrio) => (
                   <option key={barrio} value={barrio}>
@@ -163,9 +146,11 @@ export const ConsultaForm = () => {
           <div className="flex flex-col space-y-2">
 
             {/* TIPO DE ESTANCIA */}
-            <label htmlFor="tipo">Tipo de estancia</label>
-            <select {...register("tipo", { required: true })}>
-              <option> ------- </option>
+            <label htmlFor="tipo" className="font-semibold">Tipo de Vivienda</label>
+            <select {...register("tipo", { required: true })}
+              className={`p-2 border rounded-md bg-white ${errors.tipo ? "border-red-500" : ""
+                }`}>
+              <option value="" selected disabled>Seleccione tipo de vivienda</option>
               <option value="Apartamento">Apartamento</option>
               <option value="Dúplex">Dúplex</option>
               <option value="Piso">Piso</option>
@@ -176,9 +161,11 @@ export const ConsultaForm = () => {
 
           {/* HABITACIONES */}
           <div className="flex flex-col space-y-2">
-            <label>Indique el número de habitaciones</label>
+            <label htmlFor="hab" className="font-semibold">Indique el número de habitaciones</label>
             <input
               {...register("hab", { required: "Necesitamos conocer el número de habitaciones", min: 1 })}
+              className={`p-2 border rounded-md ${errors.hab ? "border-red-500" : ""
+                }`}
               type="number"
               name="hab"
             />
@@ -187,9 +174,11 @@ export const ConsultaForm = () => {
 
           {/* BAÑOS */}
           <div className="flex flex-col space-y-2">
-            <label>Indique el número de Baños</label>
+            <label htmlFor="banos" className="font-semibold">Indique el número de Baños</label>
             <input
               {...register("banos", { required: "Necesitamos conocer el número de baños", min: 1 })}
+              className={`p-2 border rounded-md ${errors.banos ? "border-red-500" : ""
+                }`}
               type="number"
               name="banos"
             />
@@ -198,9 +187,11 @@ export const ConsultaForm = () => {
 
           {/* AREA M2 */}
           <div className="flex flex-col space-y-2">
-            <label>Indique la area m2</label>
+            <label htmlFor="area" className="font-semibold">Indique el area en m2</label>
             <input
               {...register("area", { required: "Necesitamos conocer el número de baños", min: 1 })}
+              className={`p-2 border rounded-md ${errors.area ? "border-red-500" : ""
+                }`}
               type="number"
               name="area"
             />
@@ -210,7 +201,7 @@ export const ConsultaForm = () => {
 
           {/* AMUEBLADO */}
           <div className="flex flex-col space-y-2">
-            <label>¿La propiedad es amueblada?</label>
+            <label className="font-semibold">¿La propiedad es amueblada?</label>
           </div>
           <label>Sí </label>
           <input
@@ -218,6 +209,7 @@ export const ConsultaForm = () => {
             type="radio"
             name="furnished"
             value="1"
+            className='me-5'
           />
           <label>No </label>
           <input
@@ -225,34 +217,38 @@ export const ConsultaForm = () => {
             type="radio"
             name="furnished"
             value="0"
+            className='me-5'
           />
           {errors.furnished && <span className="text-xs text-red-500">{errors.furnished.message}</span>}
 
           {/* CONDICIONES  */}
 
           <div className="flex flex-col space-y-2">
-            <label>¿En que condicion se encuentra la propiedad?</label>
+            <label className="font-semibold">¿En que condición se encuentra la propiedad?</label>
           </div>
           <label>Normal </label>
           <input
-            {...register("condicion", { required: "Por favor, indique la condicion de la propiedad" })}
+            {...register("condicion", { required: "Por favor, indique la condición de la propiedad" })}
             type="radio"
             name="condicion"
             value="normal"
+            className='me-5'
           />
-          <label>Alta Calidad</label>
+          <label>Alta Calidad </label>
           <input
-            {...register("condicion", { required: "Por favor, indique la condicion de la propiedad" })}
+            {...register("condicion", { required: "Por favor, indique la condición de la propiedad" })}
             type="radio"
             name="condicion"
             value="alta-calidad"
+            className='me-5'
           />
-          <label>Lujosa</label>
+          <label>Lujosa </label>
           <input
-            {...register("condicion", { required: "Por favor, indique la condicion de la propiedad" })}
+            {...register("condicion", { required: "Por favor, indique la condición de la propiedad" })}
             type="radio"
             name="condicion"
             value="lujosa"
+            className='me-5'
           />
           {errors.condicion && <span className="text-xs text-red-500">{errors.condicion.message}</span>}
 
@@ -266,14 +262,14 @@ export const ConsultaForm = () => {
 
 
         </form>
-        
+
 
         {/* cambios */}
-        
+
 
         {data && !isLoading && (
-         <div className="max-w-xl m-4 ">
-         <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
+          <div className="max-w-xl m-4 ">
+            <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
               <>
                 <p className="text-4xl font-semibold text-gray-800 mb-4">
                   ¡Gracias por su consulta!
@@ -286,7 +282,7 @@ export const ConsultaForm = () => {
                 <div className=" bg-white py-4 px-8  rounded-lg text-center mx-auto mt-4">
 
                   <p className="text-5xl font-bold text-blue-800 mb-2">
-                  € {data.prediction}
+                    € {data.prediction}
                   </p>
                   <p className="text-2xl font-bold text-blue-800">
                     mensuales
@@ -295,7 +291,7 @@ export const ConsultaForm = () => {
 
 
 
-              
+
                 <p className="pb-4 font-bold text-green-800 text-3xl mt-4">{data.fiabilidad}</p>
                 <p className="text-2xl mt-4">
                   ¡Esperamos que esta información le sea útil!
@@ -307,21 +303,21 @@ export const ConsultaForm = () => {
         )}
 
 
-        {/* Verifica se está carregando para exibir um loading spinner ou mensagem */}
+        {/* Verifica si está cargando para mostrar spinner de loading */}
         {isLoading && (
           <div className="w-full md:w-auto m-4 ">
             <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
               <ClipLoader
                 size={35} // Tamaño del spinner
                 loading={isLoading}
-                className="text-gray-800 mx-auto" // Agrega la clase de color aquí
+                className="text-gray-800 mx-auto"
               />
               <p className="mt-4 text-lg text-gray-800 font-semibold">Cargando...</p>
             </div>
           </div>
         )}
 
-        {/* Verifica se existe um erro para exibir uma mensagem de erro */}
+        {/* Manejo de errores para mostrar en cada caso */}
         {error && (
           <div className="w-full md:w-auto m-4 ">
             <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
@@ -333,17 +329,17 @@ export const ConsultaForm = () => {
       </div>
 
 
-       {/* GRAfico*/}
-       <div className=" px-4 h-[500px] my-4">
+      {/* Grafico Historial*/}
+      <div className=" px-4 h-[500px] my-4">
         {activeGrafico && (
-          
+
           <div className="p-6 bg-gray-100 w-full rounded-lg shadow-md h-full mx-auto max-w-6xl wGrafica">
-          <p className="text-xl font-semibold text-gray-800 mb-4 text-center">Historial de Consultas</p>
+            <p className="text-xl font-semibold text-gray-800 mb-4 text-center">Historial de Consultas</p>
             <Graphics key={graphKey} />
           </div>
         )}
       </div>
 
     </>
-  )
-}
+  );
+};

@@ -19,11 +19,6 @@ export const Graphics = () => {
 
   }, [response])
 
-
-
-  console.log(response);
-  console.log(user);
-
   let history = [];
   let historialReverso = [];
 
@@ -40,8 +35,6 @@ export const Graphics = () => {
 
     history = historialReverso.slice(0, 8);
   }
-
-  console.log(history);
 
   return (
 

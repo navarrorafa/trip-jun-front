@@ -12,12 +12,14 @@ export const NavBar = () => {
   const { userStatus } = useContext(UserContext);
   const { name } = userStatus;
   const nameRegistered = JSON.parse(localStorage.getItem("saveName"));
-  
+
   // Comprueba si el usuario está autenticado y en ese caso setea estado en true
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
       }
     });
   }, []);
@@ -61,9 +63,9 @@ export const NavBar = () => {
             {isAuthenticated ? (
               <div className="flex flex-col sm:flex-row-reverse">
                 <LogoutButton setIsAuthenticated={setIsAuthenticated} />
-                {nameRegistered ? 
-                <p className="text-white p-1 sm:pe-3">Hola <strong>{nameRegistered}</strong></p> :
-                <p className="text-white p-1 sm:pe-3">Hola <strong>{name}</strong></p>
+                {nameRegistered ?
+                  <p className="text-white p-1 sm:pe-3">Hola <strong>{nameRegistered}</strong></p> :
+                  <p className="text-white p-1 sm:pe-3">Hola <strong>{name}</strong></p>
                 }
               </div>
             ) : (

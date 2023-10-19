@@ -16,7 +16,7 @@ export const AboutUsPage = () => {
           ¡Bienvenidos al website de MadBridge: Rental Predicts! Somos un equipo apasionado de profesionales que ha surgido de la experiencia intensiva en los bootcamps de TheBridge . Conformamos tres verticales especializadas: Data Science, Full Stack y Ciberseguridad. Nuestra colaboración comenzó como respuesta al proyecto fin de bootcamp, tambien llamado "Desafío de Tripulaciones", y desde entonces, hemos unido fuerzas para abordar desafíos relevantes en el mundo tecnológico.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
           <article className="bg-blue-100 p-4 rounded-lg">
             <h3 className="text-xl font-semibold mb-2 text-center">Data Science</h3>
             <p className="text-base mb-2">
@@ -38,12 +38,12 @@ export const AboutUsPage = () => {
             </p>
           </article>
         </div>
-
-        <h2 className="text-lg md:text-xl tracking-wide font-semibold pt-3">El Proyecto: Predicción de Precios de Alquiler en Madrid</h2>
-        <p className="text-base mb-4">
-          Nuestra motivación central es abordar desafíos significativos. Hemos unido nuestras habilidades para desarrollar una página web innovadora que tiene como objetivo predecir los precios de alquiler de viviendas en Madrid, tanto para estancias vacacionales como de medio plazo. Este proyecto es nuestra respuesta a la necesidad de proporcionar a la comunidad una información precisa y útil para la toma de decisiones en el ámbito de alquiler de viviendas.
-        </p>
-
+        <div className="pt-4 pb-4">
+          <h2 className="text-lg md:text-xl tracking-wide font-semibold pt-3">El Proyecto: Predicción de Precios de Alquiler en Madrid</h2>
+          <p className="text-base mb-4">
+            Nuestra motivación central es abordar desafíos significativos. Hemos unido nuestras habilidades para desarrollar una página web innovadora que tiene como objetivo predecir los precios de alquiler de viviendas en Madrid, tanto para estancias vacacionales como de medio plazo. Este proyecto es nuestra respuesta a la necesidad de proporcionar a la comunidad una información precisa y útil para la toma de decisiones en el ámbito de alquiler de viviendas.
+          </p>
+        </div>
         <h2 className="text-lg md:text-xl tracking-wide font-semibold">Nuestro Compromiso</h2>
         <p className="text-base mb-4">
           En MadBridge, nos comprometemos a la excelencia y la innovación. Creemos en el poder de la colaboración y la diversidad de habilidades para superar cualquier desafío. Estamos emocionados de compartir nuestro conocimiento y entusiasmo con ustedes a través de este proyecto y de futuros.
