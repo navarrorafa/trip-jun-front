@@ -5,3 +5,8 @@
 body{
     background-color: #D6D3D1;
 }
+.vertical-x-axis-label {
+    transform: rotate(-90deg);
+    transform-origin: left bottom;
+    white-space: nowrap; /* Ensure that long labels do not overflow */
+  }

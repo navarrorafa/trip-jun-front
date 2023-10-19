@@ -31,7 +31,9 @@ export const Graphics = () => {
 
     historialReverso = user.data.map((item, index) => ({
 
-      anyo: { fecha: item.fecha, barrio: "Barrio: " + item.barrio, habit: " Habitaciones: " + item.hab },
+      fecha: item.fecha, 
+      barrio: item.barrio, 
+      habit: "Cuartos:" + item.hab ,
       precio: item.prediction
     }))
       .reverse();
@@ -46,10 +48,11 @@ export const Graphics = () => {
     <ResponsiveContainer width="100%" height="100%">
       <BarChart width={800} height={500} data={history}>
         <Bar dataKey="precio" fill="#2196F3" />
+        
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis xAxisId="0" dataKey="anyo.fecha" />
-        <XAxis xAxisId="1" dataKey="anyo.barrio" />
-        <XAxis xAxisId="2" dataKey="anyo.habit" />
+        <XAxis xAxisId="0" dataKey="fecha" tick={false} />
+        <XAxis xAxisId="1" dataKey="barrio" dx={5}/>
+        <XAxis xAxisId="2" dataKey="habit" dx={5}  />
         <YAxis />
         <Tooltip />
         <Legend />

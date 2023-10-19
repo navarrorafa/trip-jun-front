@@ -56,8 +56,8 @@ export const EditPassPage = () => {
     return (
         <>
             <section className="pb-20">
-                <h1 className="text-2xl md:text-3xl text-center tracking-wide pt-10 md:pt-16">
-                    Cambio de contraseña:
+                <h1 className="text-2xl md:text-3xl text-center tracking-wide pt-10 md:pt-16 font-semibold">
+                    Cambio de contraseña
                 </h1>
                 {edited && <p className="text-green-800 h2 text-bold mt-6 mb-4 text-lg md:text-xl font-light text-center"><strong>Contraseña editada con éxito!</strong></p>}
                 <article>

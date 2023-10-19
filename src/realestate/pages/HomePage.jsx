@@ -18,9 +18,9 @@ export const HomePage = () => {
 
       <section className="p-6 md:p-12">
        
-          <h3 className="text-2xl font-semibold mb-6 text-center">
+          <h1 className="text-2xl md:text-3xl text-center tracking-wide mb-10 font-semibold">
             Tipo de Estancia
-          </h3>
+          </h1>
 
           <div className="flex justify-center space-x-4 mb-6">
             <button

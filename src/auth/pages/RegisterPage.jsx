@@ -42,9 +42,9 @@ export const RegisterPage = () => {
 
   return (
     <>
-      <section className="pb-20">
-        <h1 className="text-2xl md:text-3xl text-center tracking-wide pt-10 md:pt-16">
-          Bienvenido!
+      <section className="p-6 md:p-12">
+        <h1 className="text-2xl md:text-3xl text-center tracking-wide mb-10 font-semibold">
+          Registrarse
         </h1>
         <article>
           <AccessForm logregUser={logregUser} alreadyUser={false} />
