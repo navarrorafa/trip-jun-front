@@ -7,7 +7,7 @@ import { Graphics } from './Graphics';
 
 
 export const ConsultaForm = () => {
-    const { register, reset, handleSubmit, formState: { errors } } = useForm();
+    const { register, reset, handleSubmit, formState: { errors }, watch } = useForm();
     const [formData, setFormData] = useState(null);
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
@@ -17,7 +17,7 @@ export const ConsultaForm = () => {
     const { uid } = userStatus
     const [activeGrafico, setActiveGrafico] = useState(false)
     const [graphKey, setGraphKey] = useState(0)
-
+    const selectedDistrito = watch("distrito");
 
 
 
@@ -39,16 +39,16 @@ export const ConsultaForm = () => {
                 setData(response.data);
                 setGraphKey(graphKey + 1)
                 console.log('Response from server:', response.data);
-                console.log(response.data.prediction)
+          
                 const precio = response.data.prediction.toString()
-                console.log("PRECIO :", precio)
+           
 
 
                 const body = { ...data, prediction: precio, uid: uid, estanc: "larga", }
 
-                console.log("body:", body)
+             
                 const user = await dataFetch("http://localhost:3000/api/v1/consulta/crear", 'POST', body)
-                console.log(user)
+               
 
 
             } else {
@@ -65,46 +65,38 @@ export const ConsultaForm = () => {
     };
 
 
+    const distritosBairros = {
+        'Chamartín': ['Bernabéu - Hispanoamérica', 'Prosperidad', 'Castilla', 'El Viso', 'Nueva España', 'Ciudad Jardín'],
+        'Latina': ['Los Cármenes', 'Puerta del Ángel', 'Lucero', 'Aluche', 'Campamento', 'Águilas', 'Cuatro vientos'],
+        'Arganzuela': ['Legazpi', 'Palos de Moguer', 'Chopera', 'Acacias', 'Delicias', 'Imperial', 'Atocha'],
+        'Centro': ['Sol', 'Embajadores - Lavapiés', 'Justicia - Chueca', 'Universidad - Malasaña', 'Palacio', 'Cortes - Huertas'],
+        'Salamanca': ['Recoletos', 'Goya', 'Castellana', 'Lista', 'Fuente del Berro', 'Guindalera'],
+        'Fuencarral': ['Tres Olivos - Valverde', 'La Paz', 'Mirasierra', 'Peñagrande', 'Pilar', 'El Pardo', 'Fuentelarreina', 'Las Tablas', 'Montecarmelo'],
+        'Ciudad Lineal': ['Pueblo Nuevo', 'Costillares', 'Concepción', 'Ventas', 'San Juan Bautista', 'Quintana', 'San Pascual', 'Colina', 'Atalaya'],
+        'Moncloa': ['Argüelles', 'Ciudad Universitaria', 'Valdezarza', 'Casa de Campo', 'Aravaca', 'Valdemarín', 'La Florida - El Plantío'],
+        'Chamberí': ['Almagro', 'Nuevos Ministerios - Ríos Rosas', 'Trafalgar', 'Arapiles', 'Gaztambide', 'Vallehermoso'],
+        'San Blas': ['Arcos', 'Simancas', 'Salvador', 'Rejas', 'Rosas - Musas', 'Canillejas', 'Hellín', 'Amposta'],
+        'Retiro': ['Pacífico', 'Ibiza', 'Jerónimos', 'Niño Jesús', 'Adelfas', 'Estrella'],
+        'Villaverde': ['Los Ángeles', 'San Andrés', 'Los Rosales', 'Butarque', 'San Cristóbal'],
+        'Barajas': ['Timón', 'Casco Histórico de Barajas', 'Alameda de Osuna', 'Corralejos - Campo de las Naciones'],
+        'Hortaleza': ['Canillas', 'Piovera - Conde Orgaz', 'Valdebebas - Valdefuentes', 'Pinar del Rey', 'Apóstol Santiago', 'Palomas', 'Sanchinarro', 'Virgen del Cortijo - Manoteras'],
+        'Puente de Vallecas': ['Numancia', 'San Diego', 'Palomeras sureste', 'Palomeras bajas', 'Portazgo', 'Entrevías'],
+        'Usera': ['San Fermín', 'Moscardó', 'Zofio', 'Almendrales', 'Orcasur', 'Orcasitas', 'Pradolongo'],
+        'Carabanchel': ['Comillas', 'Opañel', 'Puerta bonita', 'San Isidro', 'Vista Alegre', 'Abrantes', 'Buenavista', 'Pau de Carabanchel'],
+        'Moratalaz': ['Marroquina', 'Fontarrón', 'Vinateros', 'Media Legua', 'Horcajo'],
+        'Tetuán': ['Berruguete', 'Almenara', 'Castillejos', 'Cuatro Caminos', 'Bellas Vistas', 'Valdeacederas'],
+        'Villa de Vallecas': ['Casco Histórico de Vallecas', 'Santa Eugenia', 'Ensanche de Vallecas - Valdecarros'],
+        'Vicálvaro': ['Casco histórico de Vicálvaro', 'Ambroz', 'El Cañaveral - Los Berrocales', 'Valdebernardo - Valderribas']
+    };
+    
 
 
-    const distritosArray = [
-        'Arganzuela', 'Barajas', 'Carabanchel', 'Centro', 'Chamartín',
-        'Chamberí', 'Ciudad Lineal', 'Fuencarral', 'Hortaleza', 'Latina',
-        'Moncloa', 'Moratalaz', 'Puente de Vallecas', 'Retiro', 'Salamanca',
-        'San Blas', 'Tetuán', 'Usera', 'Vicálvaro', 'Villa de Vallecas', 'Villaverde'
-    ];
-
-    const barriosArray = [
-        'Abrantes', 'Acacias', 'Adelfas', 'Alameda de Osuna', 'Almagro', 'Almenara', 'Almendrales',
-        'Aluche', 'Ambroz', 'Amposta', 'Apóstol Santiago', 'Arapiles', 'Aravaca', 'Arcos',
-        'Argüelles', 'Atalaya', 'Atocha', 'Bellas Vistas', 'Bernabéu - Hispanoamérica', 'Berruguete',
-        'Buenavista', 'Butarque', 'Campamento', 'Canillas', 'Canillejas', 'Casa de Campo',
-        'Casco Histórico de Barajas', 'Casco Histórico de Vallecas', 'Casco histórico de Vicálvaro',
-        'Castellana', 'Castilla', 'Castillejos', 'Centro', 'Chamartín', 'Chamberí', 'Chopera',
-        'Ciudad Jardín', 'Ciudad Universitaria', 'Colina', 'Comillas', 'Concepción',
-        'Corralejos - Campo de las Naciones', 'Cortes - Huertas', 'Costillares', 'Cuatro Caminos',
-        'Cuatro vientos', 'Delicias', 'El Cañaveral - Los Berrocales', 'El Pardo', 'El Viso',
-        'Embajadores - Lavapiés', 'Ensanche de Vallecas - Valdecarros', 'Entrevías', 'Estrella',
-        'Fontarrón', 'Fuente del Berro', 'Fuentelarreina', 'Gaztambide', 'Goya', 'Guindalera',
-        'Hellín', 'Horcajo', 'Ibiza', 'Imperial', 'Jerónimos', 'Justicia - Chueca',
-        'La Florida - El Plantío', 'La Paz', 'Las Tablas', 'Legazpi', 'Lista', 'Los Cármenes',
-        'Los Rosales', 'Los Ángeles', 'Lucero', 'Marroquina', 'Media Legua', 'Mirasierra',
-        'Montecarmelo', 'Moscardó', 'Niño Jesús', 'Nueva España', 'Nuevos Ministerios - Ríos Rosas',
-        'Numancia', 'Opañel', 'Orcasitas', 'Orcasur', 'Pacífico', 'Palacio', 'Palomas',
-        'Palomeras bajas', 'Palomeras sureste', 'Palos de Moguer', 'Pau de Carabanchel', 'Peñagrande',
-        'Pilar', 'Pinar del Rey', 'Piovera - Conde Orgaz', 'Portazgo', 'Pradolongo', 'Prosperidad',
-        'Pueblo Nuevo', 'Puerta bonita', 'Puerta del Ángel', 'Quintana', 'Recoletos', 'Rejas',
-        'Rosas - Musas', 'Salvador', 'San Andrés', 'San Cristóbal', 'San Diego', 'San Fermín',
-        'San Isidro', 'San Juan Bautista', 'San Pascual', 'Sanchinarro', 'Santa Eugenia', 'Simancas',
-        'Sol', 'Tetuán', 'Timón', 'Trafalgar', 'Tres Olivos - Valverde', 'Universidad - Malasaña',
-        'Valdeacederas', 'Valdebebas - Valdefuentes', 'Valdebernardo - Valderribas', 'Valdemarín',
-        'Valdezarza', 'Vallehermoso', 'Ventas', 'Vicálvaro', 'Vinateros',
-        'Virgen del Cortijo - Manoteras', 'Vista Alegre', 'Zofio', 'Águilas'
-    ];
 
 
     return (
         <>
+
+              
 
             <div className="flex flex-wrap justify-center ">
 
@@ -126,40 +118,60 @@ export const ConsultaForm = () => {
                         </select>
                     </div>
 
+{/* Campo de seleção de distrito */}
+<div className="flex flex-col space-y-2">
+          <label className="font-semibold" htmlFor="distrito">
+            Distrito
+          </label>
+          <select
+            id="distrito"
+            {...register("distrito", {
+              required: "Por favor, selecione um distrito.",
+            })}
+            className={`p-2 border rounded-md ${
+              errors.distrito ? "border-red-500" : ""
+            }`}
+          >
+            <option value=""> ------- </option>
+            {Object.keys(distritosBairros).map((distrito) => (
+              <option key={distrito} value={distrito}>
+                {distrito}
+              </option>
+            ))}
+          </select>
+          {errors.distrito && (
+            <span className="text-xs text-red-500">{errors.distrito.message}</span>
+          )}
+        </div>
 
-                    {/* DISTRITO */}
-                    <div className="flex flex-col space-y-2">
-                        <label className="font-semibold" htmlFor="distrito">Distrito</label>
-                        <select
-                            id="distrito"
-                            {...register("distrito", { required: "Por favor, selecione um distrito." })}
-                            className={`p-2 border rounded-md ${errors.distrito ? "border-red-500" : ""}`}
-                        >
-                            <option value=""> ------- </option>
-                            {distritosArray.map(distrito => (
-                                <option value={distrito} key={distrito}>{distrito}</option>
-                            ))}
-                        </select>
-                        {errors.distrito && <span className="text-xs text-red-500">{errors.distrito.message}</span>}
-                    </div>
-
-                    {/* BARRIO */}
-                    <div className="flex flex-col space-y-2">
-                        <label className="font-semibold" htmlFor="barrio">Barrio</label>
-                        <select
-                            id="barrio"
-                            {...register("barrio", { required: "Por favor, selecione um bairro." })}
-                            defaultValue=""
-                            className={`p-2 border rounded-md ${errors.barrio ? "border-red-500" : ""}`}
-                        >
-                            <option value="" disabled> ------- </option>
-                            {barriosArray.map((barrio, index) => (
-                                <option key={index} value={barrio}>{barrio}</option>
-                            ))}
-                        </select>
-                        {errors.barrio && <span className="text-xs text-red-500">{errors.barrio.message}</span>}
-                    </div>
-
+        {/* Campo de seleção de bairro */}
+        <div className="flex flex-col space-y-2">
+          <label className="font-semibold" htmlFor="barrio">
+            Barrio
+          </label>
+          <select
+            id="barrio"
+            {...register("barrio", {
+              required: "Por favor, selecione um bairro.",
+            })}
+            className={`p-2 border rounded-md ${
+              errors.barrio ? "border-red-500" : ""
+            }`}
+          >
+            <option value="" > ------- </option>
+            {selectedDistrito &&
+              distritosBairros[selectedDistrito].map((barrio) => (
+                <option key={barrio} value={barrio}>
+                  {barrio}
+                </option>
+              ))}
+          </select>
+          {errors.barrio && (
+            <span className="text-xs text-red-500">
+              {errors.barrio.message}
+            </span>
+          )}
+        </div>
 
 
                     {/* HABITACIONES */}
