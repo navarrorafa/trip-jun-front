@@ -1,14 +1,14 @@
 import React from "react";
-import madBridgeLogo from "../../assets/madbridgeLogo.png"
+import madBridgeLogo from "../../assets/madlogo.png"
 
 export const AboutUsPage = () => {
   return (
     <section>
       <div>
-        <img className="mx-auto" src={madBridgeLogo} alt="MadBridge logo" />
+        <img className="mx-auto m-20" src={madBridgeLogo} alt="MadBridge logo" />
       </div>
 
-      <h1 className="hidden">Sobre MadBridge: PR</h1>
+      <h1 className="hidden">Sobre MadBridge: RP</h1>
 
       <div className="bg-gray-100 rounded-lg shadow-md p-6 ml-12 mr-12 mb-12">
         <h2 className="text-lg md:text-xl tracking-wide font-semibold">Nuestra historia</h2>
