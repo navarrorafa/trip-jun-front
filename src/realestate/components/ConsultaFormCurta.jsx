@@ -57,7 +57,7 @@ export const ConsultaFormCurta = () => {
 
     try {
       const response = await dataFetch(
-        "http://127.0.0.1:4500/api/predict",
+        "https://proxyapidesafio.onrender.com/api1/predict",
         "POST",
         newData
       );
