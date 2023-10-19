@@ -12,7 +12,6 @@ export const dataFetch = async (url, method, body = {}) => {
                 }
                 
             }
-            console.log(newData)
         } else if (method === "DELETE") {
             options = {
                 method: method
@@ -27,7 +26,6 @@ export const dataFetch = async (url, method, body = {}) => {
         }
 
         const response = await fetch(url, options);
-        console.log("response", response)
         if (!response.ok) {
 
             let errorMsg = "Lo sentimos, ha ocurrido un error en el sistema. Por favor, póngase en contacto con el administrador para obtener ayuda. ";

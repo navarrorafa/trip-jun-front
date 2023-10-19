@@ -29,9 +29,8 @@ export const ConsultaFormCurta = () => {
   const [dateTwo, setDateTwo] = useState(nextDate);
   const { userStatus } = useContext(UserContext);
   const { uid } = userStatus
-  const [activeGrafico , setActiveGrafico] = useState(false)
-    const [graphKey , setGraphKey] = useState(0)
-  
+  const [activeGrafico, setActiveGrafico] = useState(false)
+  const [graphKey, setGraphKey] = useState(0)
 
   const onSubmit = async (data) => {
     setError(null);
@@ -52,7 +51,6 @@ export const ConsultaFormCurta = () => {
       fechas,
     };
 
-    console.log(newData);
     setFormData(newData);
     setIsLoading(true);
     setActiveGrafico(true)
@@ -69,18 +67,11 @@ export const ConsultaFormCurta = () => {
 
         setData(response.data);
         setGraphKey(graphKey + 1)
-        console.log("Response from server:", response.data);
-
 
         const precioMinimo = response.data.precio_minimo_estancia;
         const precioMaximo = response.data.precio_maximo_estancia;
         const precioMinimoDia = response.data.precio_minimo_por_dia;
         const precioMaximoDia = response.data.precio_maximo_por_dia;
-
-        console.log("PRECIO MINIMO:", response.data.precio_minimo_estancia)
-        console.log("PRECIO MAXIMO:", response.data.precio_maximo_estancia)
-        console.log("PRECIO MINIMO DIA :", response.data.precio_minimo_por_dia)
-        console.log("PRECIO MAXIMO DIA:", response.data.precio_maximo_por_dia)
 
         const body = {
           ...data,
@@ -92,13 +83,7 @@ export const ConsultaFormCurta = () => {
           estanc: "corta"
         }
 
-        console.log("body:", body)
-
         const user = await dataFetch("http://localhost:3000/api/v1/consulta/crearcorta", 'POST', body)
-        console.log(user)
-
-
-
 
       } else {
         throw new Error(response.msg);
@@ -108,7 +93,7 @@ export const ConsultaFormCurta = () => {
       console.error("Error in fetch:", error);
     } finally {
       setIsLoading(false);
-      // reset();
+      reset();
     }
   };
 
@@ -280,288 +265,277 @@ export const ConsultaFormCurta = () => {
 
   return (
     <>
-     <div className="flex flex-wrap justify-center space-y-4">
-  <form
-    onSubmit={handleSubmit(onSubmit)}
-    className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full max-w-xl w-full  m-4"
-  >
-    {/* Campo de seleção de distrito */}
-    <div className="flex flex-col space-y-2">
-      <label className="font-semibold" htmlFor="distrito">
-        Distrito
-      </label>
-      <select
-        id="distrito"
-        {...register("distrito", {
-          required: "Por favor, selecione um distrito.",
-        })}
-        className={`p-2 border rounded-md ${
-          errors.distrito ? "border-red-500" : ""
-        }`}
-      >
-        <option value="" selected disabled>Seleccione distrito</option>
-        {Object.keys(distritosBairros).map((distrito) => (
-          <option key={distrito} value={distrito}>
-            {distrito}
-          </option>
-        ))}
-      </select>
-      {errors.distrito && (
-        <span className="text-xs text-red-500">{errors.distrito.message}</span>
-      )}
-    </div>
-
-    {/* Campo de seleção de bairro */}
-    <div className="flex flex-col space-y-2">
-      <label className="font-semibold" htmlFor="neighbourhood_encoded">
-        Barrio
-      </label>
-      <select
-        id="neighbourhood_encoded"
-        {...register("neighbourhood_encoded", {
-          required: "Por favor, selecione um bairro.",
-        })}
-        className={`p-2 border rounded-md ${
-          errors.neighbourhood_encoded ? "border-red-500" : ""
-        }`}
-      >
-        <option value="" selected disabled>Seleccione barrio</option>
-        {selectedDistrito &&
-          distritosBairros[selectedDistrito].map((bairro) => (
-            <option key={bairro} value={bairro}>
-              {bairro}
-            </option>
-          ))}
-      </select>
-      {errors.neighbourhood_encoded && (
-        <span className="text-xs text-red-500">
-          {errors.neighbourhood_encoded.message}
-        </span>
-      )}
-    </div>
-
-    {/* TIPO DE HABITACION */}
-    <div className="flex flex-col space-y-2">
-      <label htmlFor="room_type_encoded" className="font-semibold">Tipo de Vivienda</label>
-      <select {...register("room_type_encoded", { required: true })}
-      className={`p-2 border rounded-md ${
-        errors.room_type_encoded ? "border-red-500" : ""
-      }`}>
-        <option value="" selected disabled>Seleccione tipo de vivienda</option>
-        <option value="Private room">Habitación Privada</option>
-        <option value="Entire home/apt">Casa/ Piso completo</option>
-        <option value="Shared room">Habitación Compartida</option>
-      </select>
-    </div>
-
-    {/* CAPACIDADE ALOJAMIENTO */}
-    <div className="flex flex-col space-y-2">
-      <label htmlFor="accommodates" className="font-semibold">
-        Número de huespedes
-      </label>
-      <input
-        {...register("accommodates", {
-          required: "Necesitamos saber la capacidad del alojamiento",
-          min: 1,
-        })}
-        type="number"
-        name="accommodates"
-        className="p-2 border rounded-md"
-      />
-      {errors.accommodates && (
-        <span className="text-xs text-red-500">
-          {errors.accommodates.message}
-        </span>
-      )}
-    </div>
-
-    {/* HABITACIONES */}
-    <div className="flex flex-col space-y-2">
-      <label htmlFor="bedrooms" className="font-semibold">
-        Número de habitaciones
-      </label>
-      <input
-        {...register("bedrooms", {
-          required: "Necesitamos saber el número de habitaciones",
-          min: 1,
-        })}
-        type="number"
-        name="bedrooms"
-        className="p-2 border rounded-md"
-      />
-      {errors.bedrooms && (
-        <span className="text-xs text-red-500">
-          {errors.bedrooms.message}
-        </span>
-      )}
-    </div>
-
-    {/* CAMAS*/}
-    <div className="flex flex-col space-y-2">
-      <label htmlFor="beds" className="font-semibold">
-        Número de Camas
-      </label>
-      <input
-        {...register("beds", {
-          required: "Necesitamos saber el número de habitaciones",
-          min: 1,
-        })}
-        type="number"
-        name="beds"
-        className="p-2 border rounded-md"
-      />
-      {errors.beds && (
-        <span className="text-xs text-red-500">
-          {errors.beds.message}
-        </span>
-      )}
-    </div>
-
-    {/* BAÑOS */}
-    <div className="flex flex-col space-y-2">
-      <label htmlFor="num_bathrooms" className="font-semibold">Número de Baños</label>
-      <input
-        {...register("num_bathrooms", {
-          required: "Necesitamos saber el número de baños",
-          min: 1,
-        })}
-        type="number"
-        name="num_bathrooms"
-        className="p-2 border rounded-md"
-      />
-      {errors.num_bathrooms && (
-        <span className="text-xs text-red-500">
-          {errors.num_bathrooms.message}
-        </span>
-      )}
-    </div>
-
-    <div className="flex flex-col sm:flex-row">
-      <DayPick
-        setDate={setDateOne}
-        date={dateOne}
-        label={"Fecha de inicio"}
-      />
-      <DayPick
-        setDate={setDateTwo}
-        date={dateTwo}
-        label={"Fecha de Salida"}
-      />
-    </div>
-
-    {/* REVIEWS */}
-    <div className="flex flex-col space-y-2">
-      <label htmlFor="Grouped_reviews" className="font-semibold">Indique la evaluación del anuncio</label>
-      <input
-        {...register("Grouped_reviews", {
-          required: "Indica la valoración del anuncio",
-          max: 5,
-        })}
-        type="number"
-        name="Grouped_reviews"
-        className="p-2 border rounded-md"
-      />
-      {errors.Grouped_reviews && (
-        <span className="text-xs text-red-500">
-          {errors.Grouped_reviews.message}
-        </span>
-      )}
-    </div>
-
-    <input
-      type="submit"
-      value="Enviar"
-      className="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition-all duration-300"
-    />
-  </form>
-
-  {data && !isLoading && (
-    <div className="max-w-xl m-4 ">
-    <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
-        <p className="text-3xl font-semibold text-gray-800 mb-4">
-          ¡Gracias por su consulta!
-        </p>
-        <p className="text-lg text-gray-800">
-          Según su búsqueda, los precios estimados son los siguientes:
-        </p>
-        <div className="grid grid-cols-2 gap-4 mt-6">
-          <div className="bg-white p-4 rounded-lg text-center">
-            <p className="text-xl font-bold text-green-800 mb-2">
-              Precio mínimo por día
-            </p>
-            <p className="text-3xl font-bold text-green-800">
-              €{data.precio_minimo_por_dia}
-            </p>
+      <div className="flex flex-wrap justify-center space-y-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="bg-gray-100 p-6 rounded-lg shadow-md space-y-3 h-full max-w-xl w-full  m-4"
+        >
+          {/* Campo de selección de distrito */}
+          <div className="flex flex-col space-y-2">
+            <label className="font-semibold" htmlFor="distrito">
+              Distrito
+            </label>
+            <select
+              id="distrito"
+              {...register("distrito", {
+                required: "Por favor, selecione un distrito.",
+              })}
+              className={`p-2 border rounded-md bg-white ${errors.distrito ? "border-red-500" : ""
+                }`}
+            >
+              <option value="" selected disabled>Seleccione distrito</option>
+              {Object.keys(distritosBairros).map((distrito) => (
+                <option key={distrito} value={distrito}>
+                  {distrito}
+                </option>
+              ))}
+            </select>
+            {errors.distrito && (
+              <span className="text-xs text-red-500">{errors.distrito.message}</span>
+            )}
           </div>
-          <div className="bg-white p-4 rounded-lg text-center">
-            <p className="text-xl font-bold text-green-800 mb-2">
-              Precio máximo por día
-            </p>
-            <p className="text-3xl font-bold text-green-800">
-              €{data.precio_maximo_por_dia}
-            </p>
+
+          {/* Campo de selección de barrio */}
+          <div className="flex flex-col space-y-2">
+            <label className="font-semibold" htmlFor="neighbourhood_encoded">
+              Barrio
+            </label>
+            <select
+              id="neighbourhood_encoded"
+              {...register("neighbourhood_encoded", {
+                required: "Por favor, selecione un barrio.",
+              })}
+              className={`p-2 border rounded-md bg-white ${errors.neighbourhood_encoded ? "border-red-500" : ""
+                }`}
+            >
+              <option value="" selected disabled>Seleccione barrio</option>
+              {selectedDistrito &&
+                distritosBairros[selectedDistrito].map((bairro) => (
+                  <option key={bairro} value={bairro}>
+                    {bairro}
+                  </option>
+                ))}
+            </select>
+            {errors.neighbourhood_encoded && (
+              <span className="text-xs text-red-500">
+                {errors.neighbourhood_encoded.message}
+              </span>
+            )}
           </div>
-          <div className="bg-white p-4 rounded-lg text-center">
-            <p className="text-xl font-bold text-blue-800 mb-2">
-              Precio mínimo de estancia
-            </p>
-            <p className="text-3xl font-bold text-blue-800">
-              €{data.precio_minimo_estancia}
-            </p>
+
+          {/* TIPO DE HABITACION */}
+          <div className="flex flex-col space-y-2">
+            <label htmlFor="room_type_encoded" className="font-semibold">Tipo de Vivienda</label>
+            <select {...register("room_type_encoded", { required: true })}
+              className={`p-2 border rounded-md bg-white ${errors.room_type_encoded ? "border-red-500" : ""
+                }`}>
+              <option value="" selected disabled>Seleccione tipo de vivienda</option>
+              <option value="Private room">Habitación Privada</option>
+              <option value="Entire home/apt">Casa/ Piso completo</option>
+              <option value="Shared room">Habitación Compartida</option>
+            </select>
           </div>
-          <div className="bg-white p-4 rounded-lg text-center">
-            <p className="text-xl font-bold text-blue-800 mb-2">
-              Precio máximo de estancia
-            </p>
-            <p className="text-3xl font-bold text-blue-800">
-              €{data.precio_maximo_estancia}
-            </p>
+
+          {/* CAPACIDAD del ALOJAMIENTO */}
+          <div className="flex flex-col space-y-2">
+            <label htmlFor="accommodates" className="font-semibold">
+              Número de huespedes
+            </label>
+            <input
+              {...register("accommodates", {
+                required: "Necesitamos saber la capacidad del alojamiento",
+                min: 1,
+              })}
+              type="number"
+              name="accommodates"
+              className="p-2 border rounded-md"
+            />
+            {errors.accommodates && (
+              <span className="text-xs text-red-500">
+                {errors.accommodates.message}
+              </span>
+            )}
           </div>
-        </div>
-        <p className="text-lg text-gray-800 mt-6">
-          ¡Esperamos que esta información le sea útil!
-        </p>
+
+          {/* HABITACIONES */}
+          <div className="flex flex-col space-y-2">
+            <label htmlFor="bedrooms" className="font-semibold">
+              Número de habitaciones
+            </label>
+            <input
+              {...register("bedrooms", {
+                required: "Necesitamos saber el número de habitaciones",
+                min: 1,
+              })}
+              type="number"
+              name="bedrooms"
+              className="p-2 border rounded-md"
+            />
+            {errors.bedrooms && (
+              <span className="text-xs text-red-500">
+                {errors.bedrooms.message}
+              </span>
+            )}
+          </div>
+
+          {/* CAMAS */}
+          <div className="flex flex-col space-y-2">
+            <label htmlFor="beds" className="font-semibold">
+              Número de Camas
+            </label>
+            <input
+              {...register("beds", {
+                required: "Necesitamos saber el número de habitaciones",
+                min: 1,
+              })}
+              type="number"
+              name="beds"
+              className="p-2 border rounded-md"
+            />
+            {errors.beds && (
+              <span className="text-xs text-red-500">
+                {errors.beds.message}
+              </span>
+            )}
+          </div>
+
+          {/* BAÑOS */}
+          <div className="flex flex-col space-y-2">
+            <label htmlFor="num_bathrooms" className="font-semibold">Número de Baños</label>
+            <input
+              {...register("num_bathrooms", {
+                required: "Necesitamos saber el número de baños",
+                min: 1,
+              })}
+              type="number"
+              name="num_bathrooms"
+              className="p-2 border rounded-md"
+            />
+            {errors.num_bathrooms && (
+              <span className="text-xs text-red-500">
+                {errors.num_bathrooms.message}
+              </span>
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row">
+            <DayPick
+              setDate={setDateOne}
+              date={dateOne}
+              label={"Fecha de inicio"}
+            />
+            <DayPick
+              setDate={setDateTwo}
+              date={dateTwo}
+              label={"Fecha de Salida"}
+            />
+          </div>
+
+          {/* REVIEWS */}
+          <div className="flex flex-col space-y-2">
+            <label htmlFor="Grouped_reviews" className="font-semibold">Indique la evaluación del anuncio</label>
+            <input
+              {...register("Grouped_reviews", {
+                required: "Indique la valoración del anuncio",
+                max: 5,
+              })}
+              type="number"
+              name="Grouped_reviews"
+              className="p-2 border rounded-md"
+            />
+            {errors.Grouped_reviews && (
+              <span className="text-xs text-red-500">
+                {errors.Grouped_reviews.message}
+              </span>
+            )}
+          </div>
+
+          <input
+            type="submit"
+            value="Enviar"
+            className="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition-all duration-300"
+          />
+        </form>
+
+        {data && !isLoading && (
+          <div className="max-w-xl m-4 ">
+            <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
+              <p className="text-3xl font-semibold text-gray-800 mb-4">
+                ¡Gracias por su consulta!
+              </p>
+              <p className="text-lg text-gray-800">
+                Según su búsqueda, los precios estimados son los siguientes:
+              </p>
+              <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="bg-white p-4 rounded-lg text-center">
+                  <p className="text-xl font-bold text-green-800 mb-2">
+                    Precio mínimo por día
+                  </p>
+                  <p className="text-3xl font-bold text-green-800">
+                    €{data.precio_minimo_por_dia}
+                  </p>
+                </div>
+                <div className="bg-white p-4 rounded-lg text-center">
+                  <p className="text-xl font-bold text-green-800 mb-2">
+                    Precio máximo por día
+                  </p>
+                  <p className="text-3xl font-bold text-green-800">
+                    €{data.precio_maximo_por_dia}
+                  </p>
+                </div>
+                <div className="bg-white p-4 rounded-lg text-center">
+                  <p className="text-xl font-bold text-blue-800 mb-2">
+                    Precio mínimo de estancia
+                  </p>
+                  <p className="text-3xl font-bold text-blue-800">
+                    €{data.precio_minimo_estancia}
+                  </p>
+                </div>
+                <div className="bg-white p-4 rounded-lg text-center">
+                  <p className="text-xl font-bold text-blue-800 mb-2">
+                    Precio máximo de estancia
+                  </p>
+                  <p className="text-3xl font-bold text-blue-800">
+                    €{data.precio_maximo_estancia}
+                  </p>
+                </div>
+              </div>
+              <p className="text-lg text-gray-800 mt-6">
+                ¡Esperamos que esta información le sea útil!
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Verifica si está cargando para mostrar spinner de loading */}
+        {isLoading && (
+          <div className="max-w-xl m-4 ">
+            <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
+              <p>Cargando...</p>
+            </div>
+          </div>
+        )}
+
+        {/* Manejo de errores para mostrar en cada caso */}
+        {error && (
+          <div className="max-w-xl m-4 ">
+            <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
+              <p>Error: {error}</p>
+            </div>
+          </div>
+        )}
       </div>
-    </div>
-  )}
 
-  {/* Verifica se está carregando para exibir um loading spinner ou mensagem */}
-  {isLoading && (
-     <div className="max-w-xl m-4 ">
-     <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
-        <p>Cargando...</p>
-      </div>
-    </div>
-  )}
-
-  {/* Verifica se existe um erro para exibir uma mensagem de erro */}
-  {error && (
-     <div className="max-w-xl m-4 ">
-     <div className="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md text-center h-full">
-        <p>Error: {error}</p>
-      </div>
-    </div>
-  )}
-</div>
-
-{/* GRAfico*/}
-<div className=" px-4 h-[500px] my-4">
+      {/* Grafico de Historial*/}
+      <div className=" px-4 h-[500px] my-4">
         {activeGrafico && (
-          
+
           <div className="p-6 bg-gray-100 w-full rounded-lg shadow-md h-full mx-auto max-w-6xl wGrafica">
-          <p className="text-xl font-semibold text-gray-800 mb-4 text-center">Historial de Consultas</p>
-      <GraphicsCorto key={graphKey} />
-    </div>
-  )}
-</div>
-
-{/* nuevo entento */}
-
-
-
+            <p className="text-xl font-semibold text-gray-800 mb-4 text-center">Historial de Consultas</p>
+            <GraphicsCorto key={graphKey} />
+          </div>
+        )}
+      </div>
     </>
   );
 };
-
-
-

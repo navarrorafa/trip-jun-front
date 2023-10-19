@@ -17,10 +17,6 @@ export const GraphicsCorto = () => {
 
   }, [response])
 
-
-  console.log(response);
-  console.log(user);
-
   let history = [];
   let historialReverso = [];
 
@@ -30,7 +26,7 @@ export const GraphicsCorto = () => {
 
       date: item.fecha, 
       barrio: item.neighbourhood_encoded, 
-      bedrooms: " Habitaciones: " + item.bedrooms,
+      bedrooms: " Habs: " + item.bedrooms,
       estrellas:  item.Grouped_reviews + " / 5★",
       min: item.precio_minimo_estancia,
       max: item.precio_maximo_estancia
@@ -40,10 +36,6 @@ export const GraphicsCorto = () => {
 
     history = historialReverso.slice(0, 5);
   }
-
-  console.log(history);
-
-
 
   return (
 

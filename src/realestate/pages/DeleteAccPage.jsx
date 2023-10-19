@@ -14,8 +14,7 @@ export const DeleteAccPage = () => {
         const user = auth.currentUser;
         try {
             await deleteUser(user);
-            navigate("/home");
-            window.location.reload();
+            navigate("/");
         } catch (error) {
             if (error.code === "auth/requires-recent-login") {
                 setErrors("Inicie sesión de nuevo y vuelva a intentarlo");
