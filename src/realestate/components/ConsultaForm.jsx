@@ -29,9 +29,16 @@ export const ConsultaForm = () => {
     setIsLoading(true);
     setActiveGrafico(true)
 
+    const newData = {
+      ...data,
+      area: data.area ? parseInt(data.area) : 0, 
+      banos: data.banos ? parseInt(data.banos) : 0,
+      furnished: data.furnished ? parseInt(data.furnished) : 0,
+      hab: data.hab ? parseInt(data.hab) : 0,
+   };
 
     try {
-      const response = await dataFetch("https://proxyapidesafio.onrender.com/api1/predict", 'POST', data);
+      const response = await dataFetch("http://127.0.0.1:3500/api/predict", 'POST', newData);
       //Manejando respuesta
       if (response.ok) {
 
